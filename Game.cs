@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace HelloWorld
@@ -11,7 +12,7 @@ namespace HelloWorld
         float _playerHealth = 100.0f;
         float _playerDamage = 0.0f;
         string _playerName = " ";
-        string _role = " ";
+        string _role = "Adventurer";
 
         //Adds typed out look to text
         //function that prints out message one leter at a time with a wait between each letter then goes to the next line
@@ -30,6 +31,7 @@ namespace HelloWorld
         void viewStats()
         {
             Console.WriteLine("\nName: " + _playerName);
+            Console.WriteLine("Role: " + _role);
             Console.WriteLine("Health: " + _playerHealth);
             Console.WriteLine("Damage: " + _playerDamage);
             Console.WriteLine("\nPress any key to continue");
@@ -48,10 +50,40 @@ namespace HelloWorld
                 Console.Write("> ");
                 _playerName = Console.ReadLine();
                 typewrite("Hello " + _playerName);
-                GetInputTwo("Yes", "No", "Is this the name you wish to continue with?");
+                input = GetInputTwo("Yes", "No", "Is this the name you wish to continue with?");
             }
         }
 
+        void requestRole()
+        {
+            char input = ' ';
+            while (input != '1' && input != '2' && input != '3')
+            {
+                Console.Clear();
+                input = GetInputThree("Knight", "Rogue", "Wizard", _playerName + " please select a Role.");
+                if (input == '1')
+                {
+                    _role = "Knight";
+                    _playerHealth = 100.0f;
+                    _playerDamage = 10.0f;
+                }
+                else if (input == '2')
+                {
+                    _role = "Rogue";
+                    _playerHealth = 80.0f;
+                    _playerDamage = 15.0f;
+                }
+                if (input == '3')
+                {
+                    _role = "Wizard";
+                    _playerHealth = 60.0f;
+                    _playerDamage = 20.0f;
+                }
+                typewrite("Hello " + _playerName + " the mighty " + _role + "!");
+            }
+        }
+
+        //Get player feed back when two options available
         Char GetInputTwo(string option1, string option2, string query)
         {
             char input = ' ';
@@ -72,17 +104,23 @@ namespace HelloWorld
             return input;
         }
 
+        //get player feed back when three options available 
         Char GetInputThree(string option1, string option2, string option3, string query)
         {
             char input = ' ';
-            while (input != '1' && input != 2)
+            while (input != '1' && input != '2' && input != '3')
             {
-                Console.WriteLine(query);
+                typewrite(query);
                 Console.WriteLine("1. " + option1);
                 Console.WriteLine("2. " + option2);
                 Console.WriteLine("3. " + option3);
+                Console.WriteLine("4. View Stats");
                 Console.Write("> ");
                 input = Console.ReadKey().KeyChar;
+                if (input == '4')
+                {
+                    viewStats();
+                }
                 Console.WriteLine();
             }
             return input;
@@ -111,7 +149,7 @@ namespace HelloWorld
             typewrite("                                              ");
             typewrite("          T E X T  A D V E N T U R E          ");
             typewrite("                                              ");
-            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("          Press any key to continue");
             Console.ReadKey();
@@ -123,12 +161,25 @@ namespace HelloWorld
         public void Update()
         {
             requestName();
+            requestRole();
+
+            typewrite("After many years of living in the safety of your home village, " +
+                "you head off on a mighty quest though unknown lands where monsters, thieves, and many other dangers live.");
+
+            char input = ' ';
+            while (input != '1' && input != '2' && input != '3')
+            {
+                typewrite 
+            }
+
+                _gameOver = true;
         }
 
         //Performed once when the game ends
         public void End()
         {
-            
+            Console.ForegroundColor = ConsoleColor.Red;
+            typewrite("G A M E  O V E R");
         }
     }
 }

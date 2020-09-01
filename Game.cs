@@ -191,7 +191,7 @@ namespace HelloWorld
             char input = ' ';
             while (input != '1' && input != '2' && input != '3')
             {
-                input = GetInputThree("Ask why she is in the woods", "Take an apple", "Attack", "She holds up a basket full of bright red apples toward you.");
+                input = GetInputThree("Ask why she is out here", "Take an apple", "Attack", "She holds up a basket full of bright red apples toward you.");
                 if (input == '1')
                 {
                     input = GetInputThree("Take an apple", "Walk away", "Attack", "She doesn't say anything but hold the basket up a little higher toward you.");
@@ -340,6 +340,101 @@ namespace HelloWorld
                         Console.Write("> ");
                         Console.ReadKey();
                         Console.Clear();
+                    }
+                }
+            }
+
+            //Path diverges
+            typewrite("You continue walking down the old road and it soon turns into a dirt path.");
+            input = ' ';
+            while (input != '1' && input != '2')
+            {
+                input = GetInputTwo("Left toward a Tall Grassy Meadow", "Right toward a Dark Woods", "Continuing your walk, you come to a fork in the road.");
+                if (input == '1')
+                {
+                    typewrite("You decide to go left toward the Tall Grassy Meadow.");
+                    area = "Tall Grassy Meadow";
+                    Console.WriteLine("Press any key to continue");
+                    Console.Write("> ");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else if (input == '2')
+                {
+                    typewrite("You decide to go right toward the Dark Woods,");
+                    area = "Dark Woods";
+                    Console.WriteLine("Press any key to continue");
+                    Console.Write("> ");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+            }
+
+            //Dark woods area
+            //First interaction
+            while (area == "Dark Woods")
+            {
+                typewrite("You're walking down the shadowy, leafy covered path of the Dark Woods.");
+                typewrite("When you see an old man sitting on a stump off the side of the road.");
+                input = ' ';
+                while (input != '1' && input != '2' && input != '3')
+                {
+                    input = GetInputThree("Help him up", "Walk away", "Attack", "When you get closer, the old man asks if you will help him up.");
+                    if (input == '1')
+                    {
+                        typewrite("You help up the old amn and realize he is blind.");
+                        typewrite("He looks at you with faded eyes and thanks you. He then waves his hand over your weapon " +
+                            "before vanishing into a pillar of somke.");
+                        typewrite("+5 bounus damage");
+                        _playerDamage += 5.0f;
+                        Console.WriteLine("Press any key to continue");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                    else if (input == '2')
+                    {
+                        typewrite("You ignore the old man and continue walking down the path.");
+                        Console.WriteLine("Press any key to continue");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                    if (input == '3')
+                    {
+                        if (_role == "Knight")
+                        {
+                            typewrite("You charge at the old man with your sword. But before you can get to him, he stands and waves his hand. " +
+                                "You feel a burning sensation coming from your sword as it has turned red hot.");
+                            typewrite("Take 20 Damage");
+                            _playerHealth -= 20.0f;
+                            Console.WriteLine("Press any key to continue");
+                            Console.Write("> ");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        else if (_role == "Rogue")
+                        {
+                            typewrite("You dash at the old man with your daggers. But before you can get to him, he stands and waves his hand. " +
+                                "You feel a burning sensation coming from your daggers as they have turned red hot.");
+                            typewrite("Take 20 Damage");
+                            _playerHealth -= 20.0f;
+                            Console.WriteLine("Press any key to continue");
+                            Console.Write("> ");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        if (_role == "Wizard")
+                        {
+                            typewrite("You cast a fireball at the old man but nothing happens. He quickly stands and waves his hand. " +
+                                "You feel a burning sensation coming from your staff as it has turned red hot.");
+                            typewrite("Take 20 Damage");
+                            _playerHealth -= 20.0f;
+                            Console.WriteLine("Press any key to continue");
+                            Console.Write("> ");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
                     }
                 }
             }

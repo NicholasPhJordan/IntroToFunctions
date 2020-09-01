@@ -13,6 +13,7 @@ namespace HelloWorld
         float _playerDamage = 0.0f;
         string _playerName = " ";
         string _role = "Adventurer";
+        string area = " ";
 
         //Adds typed out look to text
         //function that prints out message one leter at a time with a wait between each letter then goes to the next line
@@ -22,7 +23,7 @@ namespace HelloWorld
             for (int i = 0; i < message.Length; i++)
             {
                 Console.Write(message[i]);
-                System.Threading.Thread.Sleep(35);
+                System.Threading.Thread.Sleep(30);
             }
             Console.WriteLine();
         }
@@ -94,7 +95,7 @@ namespace HelloWorld
                 Console.WriteLine("2. " + option2);
                 Console.WriteLine("3. View Stats");
                 Console.Write("> ");
-                input = Console.ReadKey().KeyChar; 
+                input = Console.ReadKey().KeyChar;
                 if (input == '3')
                 {
                     viewStats();
@@ -160,19 +161,189 @@ namespace HelloWorld
         //used for all game logic that will repeat
         public void Update()
         {
+            //death means game over
+            if (_playerHealth <= 0.0f)
+            {
+                _gameOver = true;
+            }
+
+            //Charater set up
             requestName();
             requestRole();
+            Console.WriteLine("Press any key to continue");
+            Console.Write("> ");
+            Console.ReadKey();
+            Console.Clear();
 
+            //story intro
             typewrite("After many years of living in the safety of your home village, " +
-                "you head off on a mighty quest though unknown lands where monsters, thieves, and many other dangers live.");
+                "you head off on a mighty quest though unknown lands where monsters, thieves, and many other dangers live. " +
+                "There is also untold amounts of glory and riches for those who survive and return from this perilous quest.");
+            typewrite("Good Luck!");
+            Console.WriteLine("Press any key to continue");
+            Console.Write("> ");
+            Console.ReadKey();
+            Console.Clear();
 
+
+            //first interaction
+            typewrite("You start your adventure walking down an old road outside your village and soon run into a little girl, wearing a little red hood.");
             char input = ' ';
             while (input != '1' && input != '2' && input != '3')
             {
-                typewrite 
+                input = GetInputThree("Ask why she is in the woods", "Take an apple", "Attack", "She holds up a basket full of bright red apples toward you.");
+                if (input == '1')
+                {
+                    input = GetInputThree("Take an apple", "Walk away", "Attack", "She doesn't say anything but hold the basket up a little higher toward you.");
+                    if (input == '1')
+                    {
+                        typewrite("You take an apple and bite into it. The little girl smiles with large fang like teeth.");
+                        input = GetInputTwo("Run Away", "Attack", "She throws off the little red hood and turns into a large wolf!");
+                        if (input == '1')
+                        {
+                            typewrite("You manage to get away from the wolf, but not before it swipes at your back.");
+                            typewrite("Loose 20 health");
+                            _playerHealth -= 10.0f;
+                            Console.WriteLine("Press any key to continue");
+                            Console.Write("> ");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        else if (input == '2')
+                        {
+                            if (_role == "Knight")
+                            {
+                                typewrite("You swipe skillfully with your sword at the wolf, scaring it and causing it to run away.");
+                                Console.WriteLine("Press any key to continue");
+                                Console.Write("> ");
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+                            else if (_role == "Rogue")
+                            {
+                                typewrite("You quickly swipe at the wolf with your daggers, scaring it and causing it to run away.");
+                                Console.WriteLine("Press any key to continue");
+                                Console.Write("> ");
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+                            if (_role == "Wizard")
+                            {
+                                typewrite("You cast a fireball at the wolf, scaring it and causing it to run away.");
+                                Console.WriteLine("Press any key to continue");
+                                Console.Write("> ");
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+                        }
+                    }
+                    else if (input == '2')
+                    {
+                        typewrite("You walk away from the little girl and continue your adventure.");
+                        Console.WriteLine("Press any key to continue");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                    if (input == '3')
+                    {
+                        if (_role == "Knight")
+                        {
+                            typewrite("You swipe skillfully with your sword at the girl, scaring her and causing her to run away.");
+                            Console.WriteLine("Press any key to continue");
+                            Console.Write("> ");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        else if (_role == "Rogue")
+                        {
+                            typewrite("You quickly swipe at the girl with your daggers, scaring her and causing her to run away.");
+                            Console.WriteLine("Press any key to continue");
+                            Console.Write("> ");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        if (_role == "Wizard")
+                        {
+                            typewrite("You cast a fireball at the girl, scaring her and causing her to run away.");
+                            Console.WriteLine("Press any key to continue");
+                            Console.Write("> ");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                    }
+                }
+                else if (input == '2')
+                {
+                    typewrite("You take an apple and bite into it. The little girl smiles with large fang like teeth.");
+                    input = GetInputTwo("Run Away", "Attack", "She throws off the little red hood and turns into a large wolf!");
+                    if (input == '1')
+                    {
+                        typewrite("You manage to get away from the wolf, but not before it swipes at your back.");
+                        typewrite("Loose 20 health");
+                        _playerHealth -= 10.0f;
+                        Console.WriteLine("Press any key to continue");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                    else if (input == '2')
+                    {
+                        if (_role == "Knight")
+                        {
+                            typewrite("You swipe skillfully with your sword at the wolf, scaring it and causing it to run away.");
+                            Console.WriteLine("Press any key to continue");
+                            Console.Write("> ");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        else if (_role == "Rogue")
+                        {
+                            typewrite("You quickly swipe at the wolf with your daggers, scaring it and causing it to run away.");
+                            Console.WriteLine("Press any key to continue");
+                            Console.Write("> ");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        if (_role == "Wizard")
+                        {
+                            typewrite("You cast a fireball at the wolf, scaring it and causing it to run away.");
+                            Console.WriteLine("Press any key to continue");
+                            Console.Write("> ");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                    }
+                }
+                if (input == '3')
+                {
+                    if (_role == "Knight")
+                    {
+                        typewrite("You swipe skillfully with your sword at the girl, scaring her and causing her to run away.");
+                        Console.WriteLine("Press any key to continue");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                    else if (_role == "Rogue")
+                    {
+                        typewrite("You quickly swipe at the girl with your daggers, scaring her and causing her to run away.");
+                        Console.WriteLine("Press any key to continue");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                    if (_role == "Wizard")
+                    {
+                        typewrite("You cast a fireball at the girl, scaring her and causing her to run away.");
+                        Console.WriteLine("Press any key to continue");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                }
             }
 
-                _gameOver = true;
         }
 
         //Performed once when the game ends

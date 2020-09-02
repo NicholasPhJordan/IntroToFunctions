@@ -18,7 +18,7 @@ namespace HelloWorld
         string area = " ";
 
         //List that will act as the player's inventory
-        List<string> inventory = new List<string> {};
+        List<string> inventory = new List<string> { };
 
         //Adds typed out look to text
         //function that prints out message one leter at a time with a wait between each letter then goes to the next line
@@ -47,10 +47,54 @@ namespace HelloWorld
             Console.ReadKey();
         }
 
-        //enemy stats and function that decides the enemy stats
-        string _enemyName = "none";
-        float _enemyHealth = 0.0f;
-        float _enemyDamage = 0.0f;
+        //Battle sequince that also declares enemy stats
+        void startBattle(string _enemyName = "none", float _enemyHealth = 0.0f, float _enemyDamage = 0.0f)
+        {
+            char input = ' ';
+            while (_playerHealth > 0 && _enemyHealth > 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Health: " + _playerHealth + "               " + _enemyName + " Health: " + _enemyHealth);
+                Console.WriteLine("----------------------------------------------");
+                input = GetInputTwo("Attack", "Defend", "What will you do?");
+                if (input == '1')
+                {
+                    _enemyHealth -= _playerDamage;
+                    typewrite("The " + _enemyName + " took " + _playerDamage + " damage!");
+
+                }
+                else if (input == '2')
+                {
+                    typewrite("You blocked and took less damage.");
+                    _playerHealth -= _enemyDamage * 0.75f;
+                    Console.Write("> ");
+                    Console.ReadKey();
+                    continue;
+                }
+                _playerHealth -= _enemyDamage;
+                typewrite("You took " + _enemyDamage + " damage!");
+                Console.Write("> ");
+                Console.ReadKey();
+            }
+            if (_playerHealth <= 0.0f)
+            {
+                typewrite("You Died");
+                _gameOver = true;
+                Console.WriteLine("Press any key to continue");
+                Console.Write("> ");
+                Console.ReadKey();
+                Console.Clear();
+
+            }
+            else if (_enemyHealth <= 0.0f)
+            {
+                typewrite("You survived the battle!");
+                Console.WriteLine("Press any key to continue");
+                Console.Write("> ");
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
 
         //Function that gets player name
         void requestName()
@@ -167,7 +211,7 @@ namespace HelloWorld
             typewrite("                                              ");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("          Press any key to continue");
+            Console.WriteLine("          Press any key to start");
             Console.ReadKey();
             Console.Clear();
         }
@@ -192,7 +236,7 @@ namespace HelloWorld
 
             //story intro
             typewrite("After many years of living in the safety of your home village, " +
-                "you head off on a mighty quest though unknown lands where monsters, thieves, and many other dangers live. " +
+                "you head off on a mighty quest through unknown lands where monsters, thieves, and many other dangers live. " +
                 "There is also untold amounts of glory and riches for those who survive and return from this perilous quest.");
             typewrite("Good Luck!");
             Console.WriteLine("Press any key to continue");
@@ -219,7 +263,7 @@ namespace HelloWorld
                         if (input == '1')
                         {
                             typewrite("You manage to get away from the wolf, but not before it swipes at your back.");
-                            typewrite("Loose 20 health");
+                            typewrite("Loose 10 health");
                             _playerHealth -= 10.0f;
                             Console.WriteLine("Press any key to continue");
                             Console.Write("> ");
@@ -294,12 +338,12 @@ namespace HelloWorld
                 {
                     typewrite("You take an apple and bite into it. The little girl smiles with large fang like teeth.");
                     typewrite("Add apple to inventory");
-                    inventory.Insert(0,"Apple ,");
+                    inventory.Insert(0, "Apple ,");
                     input = GetInputTwo("Run Away", "Attack", "She throws off the little red hood and turns into a large wolf!");
                     if (input == '1')
                     {
                         typewrite("You manage to get away from the wolf, but not before it swipes at your back.");
-                        typewrite("Loose 20 health");
+                        typewrite("Loose 10 health");
                         _playerHealth -= 10.0f;
                         Console.WriteLine("Press any key to continue");
                         Console.Write("> ");
@@ -396,7 +440,7 @@ namespace HelloWorld
                 typewrite("You're walking on a small dirt road with tall grass that goes up to your waste on either side.");
                 typewrite("While walking you hear a strange noise and something moving in the tall grass.");
                 input = ' ';
-                while (input != '1' && input != '2')
+                while (input != '1' && input != '2' && input != '3')
                 {
                     input = GetInputThree("Talk to snake", "Run", "Attack", "A large snake slithers out the grass onto the path infront of you.");
                     if (input == '1')
@@ -410,20 +454,93 @@ namespace HelloWorld
                                 if (inventory.Contains("Apple ,"))
                                 {
                                     typewrite("You take an apple, with a single bite in it, out of your bag and offer it to the snake.");
-                                    input = GetInputTwo("RUN", "Attack", "The snake shakes its head and tells you that it doesn't want to eat the apple.");
+                                    input = GetInputTwo("Run", "Attack", "The snake shakes its head and tells you that it doesn't want to eat the apple.");
                                     if (input == '1')
                                     {
                                         typewrite("You try to run from the snake but it blocks your path.");
                                         typewrite("Prepare for a fight!");
-
+                                        Console.Write("> ");
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                        startBattle("Snake", 30.0f, 5.0f);
+                                    }
+                                    else if (input == '2')
+                                    {
+                                        typewrite("You draw your staff and prepare to fight!");
+                                        Console.Write("> ");
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                        startBattle("Snake", 30.0f, 5.0f);
+                                    }
+                                }
+                                else
+                                {
+                                    typewrite("You do not have an apple.");
+                                    input = GetInputTwo("Run", "Attack", "The snake is slooking at you with hunger in its eyes.");
+                                    if (input == '1')
+                                    {
+                                        typewrite("You try to run from the snake but it blocks your path.");
+                                        typewrite("Prepare for a fight!");
+                                        Console.Write("> ");
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                        startBattle("Snake", 30.0f, 5.0f);
+                                    }
+                                    else if (input == '2')
+                                    {
+                                        typewrite("You draw your staff and prepare to fight!");
+                                        Console.Write("> ");
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                        startBattle("Snake", 30.0f, 5.0f);
                                     }
                                 }
                             }
                         }
+                        else
+                        {
+                            typewrite("You try to talk to the snake, but it is a snake and you're not a wizard. " +
+                                "So you cannot talk to snakes.");
+                            input = GetInputTwo("Run", "Attack", "The snake coils on itself locking gaze with you.");
+                            if (input == '1')
+                            {
+                                typewrite("You try to run from the snake but it blocks your path.");
+                                typewrite("Prepare for a fight!");
+                                Console.Write("> ");
+                                Console.ReadKey();
+                                Console.Clear();
+                                startBattle("Snake", 30.0f, 5.0f);
+                            }
+                            else if (input == '2')
+                            {
+                                typewrite("You draw your weapon and prepare to fight!");
+                                Console.Write("> ");
+                                Console.ReadKey();
+                                Console.Clear();
+                                startBattle("Snake", 30.0f, 5.0f);
+                            }
+                        }
+                    }
+                    else if (input == '2')
+                    {
+                        typewrite("You try to run from the snake but it blocks your path.");
+                        typewrite("Prepare for a fight!");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                        startBattle("Snake", 30.0f, 5.0f);
+                    }
+                    if (input == '3')
+                    {
+                        typewrite("You draw your weapon and prepare to fight!");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                        startBattle("Snake", 30.0f, 5.0f);
                     }
                 }
             }
-            
+
             //Dark woods area
             //First Interaction
             while (area == "Dark Woods")

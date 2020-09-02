@@ -59,35 +59,40 @@ namespace HelloWorld
                 input = GetInputTwo("Attack", "Defend", "What will you do?");
                 if (input == '1')
                 {
+                    //attack with full damage and accept full damage
                     _enemyHealth -= _playerDamage;
                     typewrite("The " + _enemyName + " took " + _playerDamage + " damage!");
 
                 }
                 else if (input == '2')
                 {
+                    //deal no damage but take less damage from enemy
                     typewrite("You blocked and took less damage.");
-                    _playerHealth -= _enemyDamage * 0.75f;
+                    _playerHealth -= _enemyDamage * 0.25f;
                     Console.Write("> ");
                     Console.ReadKey();
                     continue;
                 }
+                //enemy attack
                 _playerHealth -= _enemyDamage;
                 typewrite("You took " + _enemyDamage + " damage!");
                 Console.Write("> ");
                 Console.ReadKey();
             }
+            //conslusion of fight 
             if (_playerHealth <= 0.0f)
             {
+                //if player looses
                 typewrite("You Died");
                 _gameOver = true;
                 Console.WriteLine("Press any key to continue");
                 Console.Write("> ");
                 Console.ReadKey();
                 Console.Clear();
-
             }
             else if (_enemyHealth <= 0.0f)
             {
+                //if player wins
                 typewrite("You survived the battle!");
                 Console.WriteLine("Press any key to continue");
                 Console.Write("> ");
@@ -96,7 +101,7 @@ namespace HelloWorld
             }
         }
 
-        //Function that gets player name
+        //Function that gets player name and checks if they want to keep it
         void requestName()
         {
             char input = ' ';
@@ -111,6 +116,7 @@ namespace HelloWorld
             }
         }
 
+        //Decides the role and stats of role for player to choose from
         void requestRole()
         {
             char input = ' ';
@@ -118,26 +124,29 @@ namespace HelloWorld
             {
                 Console.Clear();
                 input = GetInputThree("Knight", "Rogue", "Wizard", _playerName + " please select a Role.");
-                if (input == '1')
+                switch (input)
                 {
-                    _role = "Knight";
-                    _playerHealth = 100.0f;
-                    _playerDamage = 10.0f;
-                    inventory.Add("Sword");
-                }
-                else if (input == '2')
-                {
-                    _role = "Rogue";
-                    _playerHealth = 80.0f;
-                    _playerDamage = 15.0f;
-                    inventory.Add("Daggers");
-                }
-                if (input == '3')
-                {
-                    _role = "Wizard";
-                    _playerHealth = 60.0f;
-                    _playerDamage = 20.0f;
-                    inventory.Add("Staff");
+                    case '1':
+                        //gives knight stats to player
+                        _role = "Knight";
+                        _playerHealth = 100.0f;
+                        _playerDamage = 10.0f;
+                        inventory.Add("Sword");
+                        break;
+                    case '2':
+                        //gives rogue stats to player
+                        _role = "Rogue";
+                        _playerHealth = 80.0f;
+                        _playerDamage = 15.0f;
+                        inventory.Add("Daggers");
+                        break;
+                    case '3':
+                        //gives the wizard stats to player
+                        _role = "Wizard";
+                        _playerHealth = 60.0f;
+                        _playerDamage = 20.0f;
+                        inventory.Add("Staff");
+                        break;
                 }
                 typewrite("Hello " + _playerName + " the mighty " + _role + "!");
             }
@@ -272,29 +281,29 @@ namespace HelloWorld
                         }
                         else if (input == '2')
                         {
-                            if (_role == "Knight")
+                            switch (_role)
                             {
-                                typewrite("You swipe skillfully with your sword at the wolf, scaring it and causing it to run away.");
-                                Console.WriteLine("Press any key to continue");
-                                Console.Write("> ");
-                                Console.ReadKey();
-                                Console.Clear();
-                            }
-                            else if (_role == "Rogue")
-                            {
-                                typewrite("You quickly swipe at the wolf with your daggers, scaring it and causing it to run away.");
-                                Console.WriteLine("Press any key to continue");
-                                Console.Write("> ");
-                                Console.ReadKey();
-                                Console.Clear();
-                            }
-                            if (_role == "Wizard")
-                            {
-                                typewrite("You cast a fireball at the wolf, scaring it and causing it to run away.");
-                                Console.WriteLine("Press any key to continue");
-                                Console.Write("> ");
-                                Console.ReadKey();
-                                Console.Clear();
+                                case "Knight":
+                                    typewrite("You swipe skillfully with your sword at the wolf, scaring it and causing it to run away.");
+                                    Console.WriteLine("Press any key to continue");
+                                    Console.Write("> ");
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                    break;
+                                case "Rogue":
+                                    typewrite("You quickly swipe at the wolf with your daggers, scaring it and causing it to run away.");
+                                    Console.WriteLine("Press any key to continue");
+                                    Console.Write("> ");
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                    break;
+                                case "Wizard":
+                                    typewrite("You cast a fireball at the wolf, scaring it and causing it to run away.");
+                                    Console.WriteLine("Press any key to continue");
+                                    Console.Write("> ");
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                    break;
                             }
                         }
                     }
@@ -308,29 +317,29 @@ namespace HelloWorld
                     }
                     if (input == '3')
                     {
-                        if (_role == "Knight")
+                        switch (_role)
                         {
-                            typewrite("You swipe skillfully with your sword at the girl, scaring her and causing her to run away.");
-                            Console.WriteLine("Press any key to continue");
-                            Console.Write("> ");
-                            Console.ReadKey();
-                            Console.Clear();
-                        }
-                        else if (_role == "Rogue")
-                        {
-                            typewrite("You quickly swipe at the girl with your daggers, scaring her and causing her to run away.");
-                            Console.WriteLine("Press any key to continue");
-                            Console.Write("> ");
-                            Console.ReadKey();
-                            Console.Clear();
-                        }
-                        if (_role == "Wizard")
-                        {
-                            typewrite("You cast a fireball at the girl, scaring her and causing her to run away.");
-                            Console.WriteLine("Press any key to continue");
-                            Console.Write("> ");
-                            Console.ReadKey();
-                            Console.Clear();
+                            case "Knight":
+                                typewrite("You swipe skillfully with your sword at the girl, scaring her and causing her to run away.");
+                                Console.WriteLine("Press any key to continue");
+                                Console.Write("> ");
+                                Console.ReadKey();
+                                Console.Clear();
+                                break;
+                            case "Rogue":
+                                typewrite("You quickly swipe at the girl with your daggers, scaring her and causing her to run away.");
+                                Console.WriteLine("Press any key to continue");
+                                Console.Write("> ");
+                                Console.ReadKey();
+                                Console.Clear();
+                                break;
+                            case "Wizard":
+                                typewrite("You cast a fireball at the girl, scaring her and causing her to run away.");
+                                Console.WriteLine("Press any key to continue");
+                                Console.Write("> ");
+                                Console.ReadKey();
+                                Console.Clear();
+                                break;
                         }
                     }
                 }
@@ -352,57 +361,57 @@ namespace HelloWorld
                     }
                     else if (input == '2')
                     {
-                        if (_role == "Knight")
+                        switch (_role)
                         {
-                            typewrite("You swipe skillfully with your sword at the wolf, scaring it and causing it to run away.");
-                            Console.WriteLine("Press any key to continue");
-                            Console.Write("> ");
-                            Console.ReadKey();
-                            Console.Clear();
-                        }
-                        else if (_role == "Rogue")
-                        {
-                            typewrite("You quickly swipe at the wolf with your daggers, scaring it and causing it to run away.");
-                            Console.WriteLine("Press any key to continue");
-                            Console.Write("> ");
-                            Console.ReadKey();
-                            Console.Clear();
-                        }
-                        if (_role == "Wizard")
-                        {
-                            typewrite("You cast a fireball at the wolf, scaring it and causing it to run away.");
-                            Console.WriteLine("Press any key to continue");
-                            Console.Write("> ");
-                            Console.ReadKey();
-                            Console.Clear();
+                            case "Knight":
+                                typewrite("You swipe skillfully with your sword at the wolf, scaring it and causing it to run away.");
+                                Console.WriteLine("Press any key to continue");
+                                Console.Write("> ");
+                                Console.ReadKey();
+                                Console.Clear();
+                                break;
+                            case "Rogue":
+                                typewrite("You quickly swipe at the wolf with your daggers, scaring it and causing it to run away.");
+                                Console.WriteLine("Press any key to continue");
+                                Console.Write("> ");
+                                Console.ReadKey();
+                                Console.Clear();
+                                break;
+                            case "Wizard":
+                                typewrite("You cast a fireball at the wolf, scaring it and causing it to run away.");
+                                Console.WriteLine("Press any key to continue");
+                                Console.Write("> ");
+                                Console.ReadKey();
+                                Console.Clear();
+                                break;
                         }
                     }
                 }
                 if (input == '3')
                 {
-                    if (_role == "Knight")
+                    switch(_role)
                     {
-                        typewrite("You swipe skillfully with your sword at the girl, scaring her and causing her to run away.");
-                        Console.WriteLine("Press any key to continue");
-                        Console.Write("> ");
-                        Console.ReadKey();
-                        Console.Clear();
-                    }
-                    else if (_role == "Rogue")
-                    {
-                        typewrite("You quickly swipe at the girl with your daggers, scaring her and causing her to run away.");
-                        Console.WriteLine("Press any key to continue");
-                        Console.Write("> ");
-                        Console.ReadKey();
-                        Console.Clear();
-                    }
-                    if (_role == "Wizard")
-                    {
-                        typewrite("You cast a fireball at the girl, scaring her and causing her to run away.");
-                        Console.WriteLine("Press any key to continue");
-                        Console.Write("> ");
-                        Console.ReadKey();
-                        Console.Clear();
+                        case "Knight":
+                            typewrite("You swipe skillfully with your sword at the girl, scaring her and causing her to run away.");
+                            Console.WriteLine("Press any key to continue");
+                            Console.Write("> ");
+                            Console.ReadKey();
+                            Console.Clear();
+                            break;
+                        case "Rogue":
+                            typewrite("You quickly swipe at the girl with your daggers, scaring her and causing her to run away.");
+                            Console.WriteLine("Press any key to continue");
+                            Console.Write("> ");
+                            Console.ReadKey();
+                            Console.Clear();
+                            break;
+                        case "Wizard":
+                            typewrite("You cast a fireball at the girl, scaring her and causing her to run away.");
+                            Console.WriteLine("Press any key to continue");
+                            Console.Write("> ");
+                            Console.ReadKey();
+                            Console.Clear();
+                            break;
                     }
                 }
             }
@@ -539,6 +548,34 @@ namespace HelloWorld
                         startBattle("Snake", 30.0f, 5.0f);
                     }
                 }
+
+                //path diverges
+                typewrite("You carry on after your battle, walking through the tall grass. When you come to a bend in the path. " +
+                    "You see a camp fire off the path to the left and a creek further down the trail to the right.");
+                input = ' ';
+                while (input != '1' && input != '2')
+                {
+                    input = GetInputTwo("Left towrd Camp", "Right toward Creek", "Do you go toward the Camp or the Creek?");
+                    if (input == '1')
+                    {
+                        typewrite("You decide to go toward the Camp.");
+                        area = "Camp";
+                        Console.WriteLine("Press any key to continue");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                    else if (input == '2')
+                    {
+                        typewrite("You decide to go toward the Creek.");
+                        area = "Creek";
+                        Console.WriteLine("Press any key to continue");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                }
+
             }
 
             //Dark woods area
@@ -573,38 +610,71 @@ namespace HelloWorld
                     }
                     if (input == '3')
                     {
-                        if (_role == "Knight")
+                        switch(_role)
                         {
-                            typewrite("You charge at the old man with your sword. But before you can get to him, he stands and waves his hand. " +
+                            case "Knight":
+                                typewrite("You charge at the old man with your sword. But before you can get to him, he stands and waves his hand. " +
                                 "You feel a burning sensation coming from your sword as it has turned red hot.");
-                            typewrite("Take 20 Damage");
-                            _playerHealth -= 20.0f;
-                            Console.WriteLine("Press any key to continue");
-                            Console.Write("> ");
-                            Console.ReadKey();
-                            Console.Clear();
-                        }
-                        else if (_role == "Rogue")
-                        {
-                            typewrite("You dash at the old man with your daggers. But before you can get to him, he stands and waves his hand. " +
+                                typewrite("Take 20 Damage");
+                                _playerHealth -= 20.0f;
+                                Console.WriteLine("Press any key to continue");
+                                Console.Write("> ");
+                                Console.ReadKey();
+                                Console.Clear();
+                                break;
+                            case "Rogue":
+                                typewrite("You dash at the old man with your daggers. But before you can get to him, he stands and waves his hand. " +
                                 "You feel a burning sensation coming from your daggers as they have turned red hot.");
-                            typewrite("Take 20 Damage");
-                            _playerHealth -= 20.0f;
-                            Console.WriteLine("Press any key to continue");
-                            Console.Write("> ");
-                            Console.ReadKey();
-                            Console.Clear();
-                        }
-                        if (_role == "Wizard")
-                        {
-                            typewrite("You cast a fireball at the old man but nothing happens. He quickly stands and waves his hand. " +
+                                typewrite("Take 20 Damage");
+                                _playerHealth -= 20.0f;
+                                Console.WriteLine("Press any key to continue");
+                                Console.Write("> ");
+                                Console.ReadKey();
+                                Console.Clear();
+                                break;
+                            case "Wizard":
+                                typewrite("You cast a fireball at the old man but nothing happens. He quickly stands and waves his hand. " +
                                 "You feel a burning sensation coming from your staff as it has turned red hot.");
-                            typewrite("Take 20 Damage");
-                            _playerHealth -= 20.0f;
-                            Console.WriteLine("Press any key to continue");
-                            Console.Write("> ");
-                            Console.ReadKey();
-                            Console.Clear();
+                                typewrite("Take 20 Damage");
+                                _playerHealth -= 20.0f;
+                                Console.WriteLine("Press any key to continue");
+                                Console.Write("> ");
+                                Console.ReadKey();
+                                Console.Clear();
+                                break;
+                        }
+                    }
+                }
+
+                //second interaction
+                typewrite("You continue on the dark trail and soon enter an opening in the middle of the Dark Woods. " +
+                    "You stop and start to hear noises. Something is moving all around you.");
+                input = ' ';
+                while (input != '1' && input !='2' && input != '3')
+                {
+                    input = GetInputThree("Call out", "Run", "Attack", "The noise suddenly stops infront of you behind some bushes.");
+                    if (input == '1')
+                    {
+                        typewrite("You call out into the open.");
+                        input = GetInputThree("Demand they come closer", "Run", "Attack", " A low voice replies saying hello, followed by some psychotic laughter.");
+                        if (input == '1')
+                        {
+                            typewrite("You demand that whoever it is comes out of the bushes and into the opening. " +
+                                "They follow your wishes and a shadowy figure comes out of the bushes. Before stands a tall thin man with large daggers on his hips.");
+                            if (_role == "Rogue")
+                            {
+                                input = GetInputThree("Use thieves cant", "Run", "Attack", "You notice a fellow thief when you see one.");
+                                if (input == '1')
+                                {
+                                    typewrite("You try to use thieves cant to show that you are a friend, but he does not care. He says he has no frinds, " +
+                                        "followd by some psychotic laughter.");
+                                    input = GetInputTwo("Run", "Attack", "He puts his hands on his daggers.");
+                                    if (input == '1')
+                                    {
+                                        typewrite("You try to run for it realizing this guy is CRAZY, but he jumps infront of you cutting you across the chest.");
+                                    }
+                                }
+                            }
                         }
                     }
                 }

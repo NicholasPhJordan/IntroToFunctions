@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Drawing;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace HelloWorld
@@ -14,6 +16,9 @@ namespace HelloWorld
         string _playerName = " ";
         string _role = "Adventurer";
         string area = " ";
+
+        //List that will act as the player's inventory
+        List<string> inventory = new List<string> {};
 
         //Adds typed out look to text
         //function that prints out message one leter at a time with a wait between each letter then goes to the next line
@@ -35,10 +40,17 @@ namespace HelloWorld
             Console.WriteLine("Role: " + _role);
             Console.WriteLine("Health: " + _playerHealth);
             Console.WriteLine("Damage: " + _playerDamage);
+            Console.Write("Inventory: ");
+            inventory.ForEach(Console.Write);
             Console.WriteLine("\nPress any key to continue");
             Console.Write("> ");
             Console.ReadKey();
         }
+
+        //enemy stats and function that decides the enemy stats
+        string _enemyName = "none";
+        float _enemyHealth = 0.0f;
+        float _enemyDamage = 0.0f;
 
         //Function that gets player name
         void requestName()
@@ -67,18 +79,21 @@ namespace HelloWorld
                     _role = "Knight";
                     _playerHealth = 100.0f;
                     _playerDamage = 10.0f;
+                    inventory.Add("Sword");
                 }
                 else if (input == '2')
                 {
                     _role = "Rogue";
                     _playerHealth = 80.0f;
                     _playerDamage = 15.0f;
+                    inventory.Add("Daggers");
                 }
                 if (input == '3')
                 {
                     _role = "Wizard";
                     _playerHealth = 60.0f;
                     _playerDamage = 20.0f;
+                    inventory.Add("Staff");
                 }
                 typewrite("Hello " + _playerName + " the mighty " + _role + "!");
             }
@@ -194,10 +209,12 @@ namespace HelloWorld
                 input = GetInputThree("Ask why she is out here", "Take an apple", "Attack", "She holds up a basket full of bright red apples toward you.");
                 if (input == '1')
                 {
-                    input = GetInputThree("Take an apple", "Walk away", "Attack", "She doesn't say anything but hold the basket up a little higher toward you.");
+                    input = GetInputThree("Take an apple", "Walk away", "Attack", "She doesn't say anything but holds the basket up a little higher toward you.");
                     if (input == '1')
                     {
                         typewrite("You take an apple and bite into it. The little girl smiles with large fang like teeth.");
+                        typewrite("Add apple to inventory");
+                        inventory.Insert(0, "Apple ,");
                         input = GetInputTwo("Run Away", "Attack", "She throws off the little red hood and turns into a large wolf!");
                         if (input == '1')
                         {
@@ -276,6 +293,8 @@ namespace HelloWorld
                 else if (input == '2')
                 {
                     typewrite("You take an apple and bite into it. The little girl smiles with large fang like teeth.");
+                    typewrite("Add apple to inventory");
+                    inventory.Insert(0,"Apple ,");
                     input = GetInputTwo("Run Away", "Attack", "She throws off the little red hood and turns into a large wolf!");
                     if (input == '1')
                     {
@@ -370,8 +389,43 @@ namespace HelloWorld
                 }
             }
 
+            //Tall Grassy Meadow area
+            //First Interaction
+            while (area == "Tall Grassy Meadow")
+            {
+                typewrite("You're walking on a small dirt road with tall grass that goes up to your waste on either side.");
+                typewrite("While walking you hear a strange noise and something moving in the tall grass.");
+                input = ' ';
+                while (input != '1' && input != '2')
+                {
+                    input = GetInputThree("Talk to snake", "Run", "Attack", "A large snake slithers out the grass onto the path infront of you.");
+                    if (input == '1')
+                    {
+                        if (_role == "Wizard")
+                        {
+                            typewrite("You talk to the snake and to your surprise it replies.");
+                            input = GetInputTwo("Offer apple", "Attack", "The sanke tells you that it doesn't wish to fight and just wants some food.");
+                            if (input == '1')
+                            {
+                                if (inventory.Contains("Apple ,"))
+                                {
+                                    typewrite("You take an apple, with a single bite in it, out of your bag and offer it to the snake.");
+                                    input = GetInputTwo("RUN", "Attack", "The snake shakes its head and tells you that it doesn't want to eat the apple.");
+                                    if (input == '1')
+                                    {
+                                        typewrite("You try to run from the snake but it blocks your path.");
+                                        typewrite("Prepare for a fight!");
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
             //Dark woods area
-            //First interaction
+            //First Interaction
             while (area == "Dark Woods")
             {
                 typewrite("You're walking down the shadowy, leafy covered path of the Dark Woods.");

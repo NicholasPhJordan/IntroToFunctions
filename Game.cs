@@ -84,11 +84,11 @@ namespace HelloWorld
             {
                 //if player looses
                 typewrite("You Died");
-                _gameOver = true;
                 Console.WriteLine("Press any key to continue");
                 Console.Write("> ");
                 Console.ReadKey();
                 Console.Clear();
+                _gameOver = true;
             }
             else if (_enemyHealth <= 0.0f)
             {
@@ -120,35 +120,40 @@ namespace HelloWorld
         void requestRole()
         {
             char input = ' ';
-            while (input != '1' && input != '2' && input != '3')
+            while (input != '1')
             {
-                Console.Clear();
-                input = GetInputThree("Knight", "Rogue", "Wizard", _playerName + " please select a Role.");
-                switch (input)
+                input = ' ';
+                while (input != '1' && input != '2' && input != '3')
                 {
-                    case '1':
-                        //gives knight stats to player
-                        _role = "Knight";
-                        _playerHealth = 100.0f;
-                        _playerDamage = 10.0f;
-                        inventory.Add("Sword");
-                        break;
-                    case '2':
-                        //gives rogue stats to player
-                        _role = "Rogue";
-                        _playerHealth = 80.0f;
-                        _playerDamage = 15.0f;
-                        inventory.Add("Daggers");
-                        break;
-                    case '3':
-                        //gives the wizard stats to player
-                        _role = "Wizard";
-                        _playerHealth = 60.0f;
-                        _playerDamage = 20.0f;
-                        inventory.Add("Staff");
-                        break;
+                    Console.Clear();
+                    input = GetInputThree("Knight", "Rogue", "Wizard", _playerName + " please select a Role.");
+                    switch (input)
+                    {
+                        case '1':
+                            //gives knight stats to player
+                            _role = "Knight";
+                            _playerHealth = 100.0f;
+                            _playerDamage = 10.0f;
+                            inventory.Add("Sword");
+                            break;
+                        case '2':
+                            //gives rogue stats to player
+                            _role = "Rogue";
+                            _playerHealth = 80.0f;
+                            _playerDamage = 15.0f;
+                            inventory.Add("Daggers");
+                            break;
+                        case '3':
+                            //gives the wizard stats to player
+                            _role = "Wizard";
+                            _playerHealth = 60.0f;
+                            _playerDamage = 20.0f;
+                            inventory.Add("Staff");
+                            break;
+                    }
+                    typewrite("Hello " + _playerName + " the mighty " + _role + "!");
                 }
-                typewrite("Hello " + _playerName + " the mighty " + _role + "!");
+                input = GetInputTwo("Yes", "No", "Is this the role you wish to continue with?");
             }
         }
 
@@ -229,12 +234,6 @@ namespace HelloWorld
         //used for all game logic that will repeat
         public void Update()
         {
-            //death means game over
-            if (_playerHealth <= 0.0f)
-            {
-                _gameOver = true;
-            }
-
             //Charater set up
             requestName();
             requestRole();
@@ -389,7 +388,7 @@ namespace HelloWorld
                 }
                 if (input == '3')
                 {
-                    switch(_role)
+                    switch (_role)
                     {
                         case "Knight":
                             typewrite("You swipe skillfully with your sword at the girl, scaring her and causing her to run away.");
@@ -610,12 +609,12 @@ namespace HelloWorld
                     }
                     if (input == '3')
                     {
-                        switch(_role)
+                        switch (_role)
                         {
                             case "Knight":
                                 typewrite("You charge at the old man with your sword. But before you can get to him, he stands and waves his hand. " +
                                 "You feel a burning sensation coming from your sword as it has turned red hot.");
-                                typewrite("Take 20 Damage");
+                                typewrite("Loose 20 Health");
                                 _playerHealth -= 20.0f;
                                 Console.WriteLine("Press any key to continue");
                                 Console.Write("> ");
@@ -625,7 +624,7 @@ namespace HelloWorld
                             case "Rogue":
                                 typewrite("You dash at the old man with your daggers. But before you can get to him, he stands and waves his hand. " +
                                 "You feel a burning sensation coming from your daggers as they have turned red hot.");
-                                typewrite("Take 20 Damage");
+                                typewrite("Loose 20 Health");
                                 _playerHealth -= 20.0f;
                                 Console.WriteLine("Press any key to continue");
                                 Console.Write("> ");
@@ -635,7 +634,7 @@ namespace HelloWorld
                             case "Wizard":
                                 typewrite("You cast a fireball at the old man but nothing happens. He quickly stands and waves his hand. " +
                                 "You feel a burning sensation coming from your staff as it has turned red hot.");
-                                typewrite("Take 20 Damage");
+                                typewrite("Loose 20 Health");
                                 _playerHealth -= 20.0f;
                                 Console.WriteLine("Press any key to continue");
                                 Console.Write("> ");
@@ -650,17 +649,17 @@ namespace HelloWorld
                 typewrite("You continue on the dark trail and soon enter an opening in the middle of the Dark Woods. " +
                     "You stop and start to hear noises. Something is moving all around you.");
                 input = ' ';
-                while (input != '1' && input !='2' && input != '3')
+                while (input != '1' && input != '2' && input != '3')
                 {
                     input = GetInputThree("Call out", "Run", "Attack", "The noise suddenly stops infront of you behind some bushes.");
                     if (input == '1')
                     {
                         typewrite("You call out into the open.");
-                        input = GetInputThree("Demand they come closer", "Run", "Attack", " A low voice replies saying hello, followed by some psychotic laughter.");
+                        input = GetInputThree("Demand they come closer", "Run", "Attack", "A low voice replies saying hello, followed by some psychotic laughter.");
                         if (input == '1')
                         {
                             typewrite("You demand that whoever it is comes out of the bushes and into the opening. " +
-                                "They follow your wishes and a shadowy figure comes out of the bushes. Before stands a tall thin man with large daggers on his hips.");
+                                "They follow your wishes and a shadowy figure comes out of the bushes. Before you stands a tall thin man with large daggers on his hips.");
                             if (_role == "Rogue")
                             {
                                 input = GetInputThree("Use thieves cant", "Run", "Attack", "You notice a fellow thief when you see one.");
@@ -671,15 +670,156 @@ namespace HelloWorld
                                     input = GetInputTwo("Run", "Attack", "He puts his hands on his daggers.");
                                     if (input == '1')
                                     {
-                                        typewrite("You try to run for it realizing this guy is CRAZY, but he jumps infront of you cutting you across the chest.");
+                                        typewrite("You try to run for it realizing this guy is CRAZY, but he jumps infront of you cutting you across the chest!");
+                                        typewrite("Loose 10 Health");
+                                        _playerHealth -= 10.0f;
+                                        typewrite("Prepare for a fight!");
+                                        Console.Write("> ");
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                        startBattle("Crazed Thief", 40.0f, 10.0f);
                                     }
+                                    else if (input == '2')
+                                    {
+                                        typewrite("You don't wait for him to attack first and dash at him with your daggers!");
+                                        typewrite("Prepare for a fight!");
+                                        Console.Write("> ");
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                        startBattle("Crazed Thief", 40.0f, 10.0f);
+                                    }
+                                }
+                                else if (input == '2')
+                                {
+                                    typewrite("You try to run for it, but he jumps infront of you cutting you across the chest!");
+                                    typewrite("Loose 10 Health");
+                                    _playerHealth -= 10.0f;
+                                    typewrite("Prepare for a fight!");
+                                    Console.Write("> ");
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                    startBattle("Crazed Thief", 40.0f, 10.0f);
+                                }
+                                if (input == '3')
+                                {
+                                    typewrite("You don't wait for him to get a chance to attack first and dash at him with your daggers!");
+                                    typewrite("Prepare for a fight!");
+                                    Console.Write("> ");
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                    startBattle("Crazed Thief", 40.0f, 10.0f);
+                                }
+                            }
+                            else
+                            {
+                                input = GetInputThree("Reason with", "Run", "Attack", "He looks at you with a crazed look in his eyes.");
+                                if (input == '1')
+                                {
+                                    typewrite("You starts to say something in a gentel voice, but the man dashes at you with his daggers cutting you across the chest!");
+                                    typewrite("Loose 10 Health");
+                                    _playerHealth -= 10.0f;
+                                    typewrite("Prepare for a fight!");
+                                    Console.Write("> ");
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                    startBattle("Crazed Thief", 40.0f, 10.0f);
+                                }
+                                else if (input == '2')
+                                {
+                                    typewrite("You try to run for it, but he jumps infront of you cutting you across the chest!");
+                                    typewrite("Loose 10 Health");
+                                    _playerHealth -= 10.0f;
+                                    typewrite("Prepare for a fight!");
+                                    Console.Write("> ");
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                    startBattle("Crazed Thief", 40.0f, 10.0f);
+                                }
+                                else if (input == '3')
+                                {
+                                    typewrite("You don't wait for him to go crazy and attack!");
+                                    typewrite("Prepare for a fight!");
+                                    Console.Write("> ");
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                    startBattle("Crazed Thief", 40.0f, 10.0f);
                                 }
                             }
                         }
+                        else if (input == '2')
+                        {
+                            typewrite("You take a run for it when a tall, thin man jumps out infront of you with daggers in each hand.");
+                            typewrite("He cuts you across the chest!");
+                            typewrite("Loose 10 Health");
+                            _playerHealth -= 10.0f;
+                            typewrite("Prepare for a fight!");
+                            Console.Write("> ");
+                            Console.ReadKey();
+                            Console.Clear();
+                            startBattle("Crazed Thief", 40.0f, 10.0f);
+                        }
+                        if (input == '3')
+                        {
+                            typewrite("You attack blindly at the bush. A scream escapes from the bush and a tall, thin man jumps out with daggers ready!");
+                            typewrite("Prepare for a fight!");
+                            Console.Write("> ");
+                            Console.ReadKey();
+                            Console.Clear();
+                            startBattle("Crazed Thief", 35.0f, 10.0f);
+                        }
+                    }
+                    else if (input == '2')
+                    {
+                        typewrite("You make a run for it from these spooky noises when a tall, thin  man, with daggers in each hand, jumps out from behind the bushes.");
+                        typewrite("He cuts you across the chest!");
+                        typewrite("Loose 10 Health");
+                        _playerHealth -= 10.0f;
+                        typewrite("Prepare for a fight!");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                        startBattle("Crazed Thief", 40.0f, 10.0f);
+                    }
+                    if (input == '3')
+                    {
+                        typewrite("You attack blindly at the bush. A scream escapes from the bush and a tall, thin man jumps out with daggers ready!");
+                        typewrite("Prepare for a fight!");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                        startBattle("Crazed Thief", 35.0f, 10.0f);
                     }
                 }
-            }
 
+                //Path diverges
+                typewrite("After the fight, you continue on the path. Some times goes by and you come to a bend in the path.");
+                typewrite("The path goes toward a lighter and less dense part of the woods, " +
+                    "but you also notice a covered path that leads even deeper into the Dark Woods.");
+                input = ' ';
+                while (input != '1' && input != '2')
+                {
+                    input = GetInputTwo("Left toward the Dark Woods", "Right toward the Light Woods",
+                        "Do you go toward the Light Woods or head deeper into the Dark Woods?");
+                    if (input == '1')
+                    {
+                        typewrite("You decide to go further into the Dark Woods");
+                        Console.WriteLine("Press any key to continue");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                    else if (input == '2')
+                    {
+                        typewrite("You decide to head towrd the Light Woods");
+                        area = "Light Woods";
+                        Console.WriteLine("Press any key to continue");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                }
+
+            }
         }
 
         //Performed once when the game ends

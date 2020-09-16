@@ -43,7 +43,8 @@ namespace HelloWorld
             Console.Write("> ");
             Console.ReadKey();
         }
-
+        
+        //playerm chooses name
         public void ChooseName()
         {
             Console.Clear();
@@ -53,7 +54,7 @@ namespace HelloWorld
             typewrite("Hello " + name);
         }
 
-
+        //player chooses role
         public void ChooseRole()
         {
             char input = ' ';

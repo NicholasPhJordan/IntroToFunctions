@@ -48,10 +48,10 @@ namespace HelloWorld
         public void ChooseName()
         {
             Console.Clear();
-            typewrite("Welcome! What is your name adventurer?");
+            Typeout("Welcome! What is your name adventurer?");
             Console.Write("> ");
             name = Console.ReadLine();
-            typewrite("Hello " + name);
+            Typeout("Hello " + name);
         }
 
         //player chooses role
@@ -86,15 +86,15 @@ namespace HelloWorld
                         inventory.Add("Staff");
                         break;
                 }
-                typewrite("Hello " + name + " the mighty " + role + "!");
+                Typeout("Hello " + name + " the mighty " + role + "!");
             }
         }
 
 
         //Adds typed out look to text
         //function that prints out message one leter at a time with a wait between each letter then goes to the next line
-        //i did get this off the internet and for the most part i do understand what it's saying
-        static void typewrite(string message)
+        //i did get this off the internet and i do understand what it's saying
+        static void Typeout(string message)
         {
             for (int i = 0; i < message.Length; i++)
             {
@@ -110,7 +110,7 @@ namespace HelloWorld
             char input = ' ';
             while (input != '1' && input != '2')
             {
-                typewrite(query);
+                Typeout(query);
                 Console.WriteLine("1. " + option1);
                 Console.WriteLine("2. " + option2);
                 Console.WriteLine("3. View Stats");
@@ -131,7 +131,7 @@ namespace HelloWorld
             char input = ' ';
             while (input != '1' && input != '2' && input != '3')
             {
-                typewrite(query);
+                Typeout(query);
                 Console.WriteLine("1. " + option1);
                 Console.WriteLine("2. " + option2);
                 Console.WriteLine("3. " + option3);

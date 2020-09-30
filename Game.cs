@@ -12,8 +12,45 @@ namespace HelloWorld
     {
         //Variables that are used through out the game
         bool _gameOver = false;
-        private Player _player;
+        private Character _player;
         string area = " ";
+
+        //player chooses role
+        public void ChooseRole()
+        {
+            char input = ' ';
+            while (input != '1' && input != '2' && input != '3')
+            {
+                Console.Clear();
+                input = GetInput("Knight", "Rogue", "Wizard", _player.GetName() + " please select a Role.");
+                switch (input)
+                {
+                    case '1':
+                        //gives knight stats to player
+                        _player = new Knight();
+                        break;
+                    case '2':
+                        //gives rogue stats to player
+                        _player = new Rogue();
+                        break;
+                    case '3':
+                        //gives the wizard stats to player
+                        _player = new Wizard();
+                        Character._role = "Wizard"; 
+                        break;
+                }
+                Typeout("Hello " + _player.GetName() + " the mighty " + _player.GetRole() + "!");
+            }
+        }
+
+
+
+
+
+
+
+
+
 
         //Adds typed out look to text
         //function that prints out message one leter at a time with a wait between each letter then goes to the next line
@@ -32,7 +69,7 @@ namespace HelloWorld
         void startBattle(string _enemyName = "none", float _enemyHealth = 0.0f, float _enemyDamage = 0.0f)
         {
             char input = ' ';
-            while (_player.health > 0 && _enemyHealth > 0)
+            while (_player._health > 0 && _enemyHealth > 0)
             {
                 Console.Clear();
                 Console.WriteLine("Health: " + _player.health + "               " + _enemyName + " Health: " + _enemyHealth);
@@ -139,6 +176,7 @@ namespace HelloWorld
             return input;
         }
 
+        //clears the screen and continues with player input
         public void ClearScreen()
         {
             Console.WriteLine("Press any key to continue");
@@ -211,12 +249,12 @@ namespace HelloWorld
                         {
                             Typeout("You manage to get away from the wolf, but not before it swipes at your back.");
                             Typeout("Loose 10 health");
-                            _player.health -= 10.0f;
+                            _player.TakeDamage(10.0f);
                             ClearScreen();
                         }
                         else if (input == '2')
                         {
-                            switch (_player.role)
+                            switch (_player.GetRole())
                             {
                                 case "Knight":
                                     Typeout("You swipe skillfully with your sword at the wolf, scaring it and causing it to run away.");
@@ -240,7 +278,7 @@ namespace HelloWorld
                     }
                     if (input == '3')
                     {
-                        switch (_player.role)
+                        switch (_player.GetRole())
                         {
                             case "Knight":
                                 Typeout("You swipe skillfully with your sword at the girl, scaring her and causing her to run away.");
@@ -267,12 +305,12 @@ namespace HelloWorld
                     {
                         Typeout("You manage to get away from the wolf, but not before it swipes at your back.");
                         Typeout("Loose 10 health");
-                        _player.health -= 10.0f;
+                        _player.TakeDamage(10.0f);
                         ClearScreen();
                     }
                     else if (input == '2')
                     {
-                        switch (_player.role)
+                        switch (_player.GetRole())
                         {
                             case "Knight":
                                 Typeout("You swipe skillfully with your sword at the wolf, scaring it and causing it to run away.");
@@ -291,7 +329,7 @@ namespace HelloWorld
                 }
                 if (input == '3')
                 {
-                    switch (_player.role)
+                    switch (_player.GetRole())
                     {
                         case "Knight":
                             Typeout("You swipe skillfully with your sword at the girl, scaring her and causing her to run away.");
@@ -341,7 +379,7 @@ namespace HelloWorld
                     input = GetInput("Talk to snake", "Run", "Attack", "A large snake slithers out the grass onto the path infront of you.");
                     if (input == '1')
                     {
-                        if (_player.role == "Wizard")
+                        if (_player.GetRole() == "Wizard")
                         {
                             Typeout("You talk to the snake and to your surprise it replies.");
                             input = GetInput("Offer apple", "Attack", "The sanke tells you that it doesn't wish to fight and just wants some food.");
@@ -475,7 +513,7 @@ namespace HelloWorld
                         Typeout("He looks at you with faded eyes and thanks you. He then waves his hand over your weapon " +
                             "before vanishing into a pillar of somke.");
                         Typeout("+5 bounus damage");
-                        _player.damage += 5.0f;
+                        _player += 5.0f;
                         ClearScreen();
                     }
                     else if (input == '2')
@@ -485,27 +523,27 @@ namespace HelloWorld
                     }
                     if (input == '3')
                     {
-                        switch (_player.role)
+                        switch (_player.GetRole())
                         {
                             case "Knight":
                                 Typeout("You charge at the old man with your sword. But before you can get to him, he stands and waves his hand. " +
                                 "You feel a burning sensation coming from your sword as it has turned red hot.");
                                 Typeout("Loose 20 Health");
-                                _player.health -= 20.0f;
+                                _player.TakeDamage(20.0f);
                                 ClearScreen();
                                 break;
                             case "Rogue":
                                 Typeout("You dash at the old man with your daggers. But before you can get to him, he stands and waves his hand. " +
                                 "You feel a burning sensation coming from your daggers as they have turned red hot.");
                                 Typeout("Loose 20 Health");
-                                _player.health -= 20.0f;
+                                _player.TakeDamage(20.0f);
                                 ClearScreen();
                                 break;
                             case "Wizard":
                                 Typeout("You cast a fireball at the old man but nothing happens. He quickly stands and waves his hand. " +
                                 "You feel a burning sensation coming from your staff as it has turned red hot.");
                                 Typeout("Loose 20 Health");
-                                _player.health -= 20.0f;
+                                _player.TakeDamage(20.0f);
                                 ClearScreen();
                                 break;
                         }
@@ -527,7 +565,7 @@ namespace HelloWorld
                         {
                             Typeout("You demand that whoever it is comes out of the bushes and into the opening. " +
                                 "They follow your wishes and a shadowy figure comes out of the bushes. Before you stands a tall thin man with large daggers on his hips.");
-                            if (_player.role == "Rogue")
+                            if (_player.GetRole() == "Rogue")
                             {
                                 input = GetInput("Use thieves cant", "Run", "Attack", "You notice a fellow thief when you see one.");
                                 if (input == '1')
@@ -539,7 +577,7 @@ namespace HelloWorld
                                     {
                                         Typeout("You try to run for it realizing this guy is CRAZY, but he jumps infront of you cutting you across the chest!");
                                         Typeout("Loose 10 Health");
-                                        _player.health -= 10.0f;
+                                        _player.TakeDamage(20.0f);
                                         Typeout("Prepare for a fight!");
                                         Console.Write("> ");
                                         Console.ReadKey();
@@ -560,7 +598,7 @@ namespace HelloWorld
                                 {
                                     Typeout("You try to run for it, but he jumps infront of you cutting you across the chest!");
                                     Typeout("Loose 10 Health");
-                                    _player.health -= 10.0f;
+                                    _player.TakeDamage(10.0f);
                                     Typeout("Prepare for a fight!");
                                     Console.Write("> ");
                                     Console.ReadKey();
@@ -584,7 +622,7 @@ namespace HelloWorld
                                 {
                                     Typeout("You starts to say something in a gentel voice, but the man dashes at you with his daggers cutting you across the chest!");
                                     Typeout("Loose 10 Health");
-                                    _player.health -= 10.0f;
+                                    _player.TakeDamage(10.0f);
                                     Typeout("Prepare for a fight!");
                                     Console.Write("> ");
                                     Console.ReadKey();
@@ -595,7 +633,7 @@ namespace HelloWorld
                                 {
                                     Typeout("You try to run for it, but he jumps infront of you cutting you across the chest!");
                                     Typeout("Loose 10 Health");
-                                    _player.health -= 10.0f;
+                                    _player.TakeDamage(10.0f);
                                     Typeout("Prepare for a fight!");
                                     Console.Write("> ");
                                     Console.ReadKey();
@@ -618,7 +656,7 @@ namespace HelloWorld
                             Typeout("You take a run for it when a tall, thin man jumps out infront of you with daggers in each hand.");
                             Typeout("He cuts you across the chest!");
                             Typeout("Loose 10 Health");
-                            _player.health -= 10.0f;
+                            _player.TakeDamage(10.0f);
                             Typeout("Prepare for a fight!");
                             Console.Write("> ");
                             Console.ReadKey();
@@ -640,7 +678,7 @@ namespace HelloWorld
                         Typeout("You make a run for it from these spooky noises when a tall, thin  man, with daggers in each hand, jumps out from behind the bushes.");
                         Typeout("He cuts you across the chest!");
                         Typeout("Loose 10 Health");
-                        _player.health -= 10.0f;
+                        _player.TakeDamage(10.0f);
                         Typeout("Prepare for a fight!");
                         Console.Write("> ");
                         Console.ReadKey();

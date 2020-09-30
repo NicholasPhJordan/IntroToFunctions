@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HelloWorld
 {
-    public class Player
+    class Player
     {
         public string name;
         public float health;
@@ -66,10 +66,7 @@ namespace HelloWorld
                 {
                     case '1':
                         //gives knight stats to player
-                        role = "Knight";
-                        health = 100.0f;
-                        damage = 10.0f;
-                        inventory.Add("Sword");
+                        
                         break;
                     case '2':
                         //gives rogue stats to player

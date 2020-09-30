@@ -43,25 +43,26 @@ namespace HelloWorld
                     Console.WriteLine("1. Frost [20 Damage]");
                     Console.WriteLine("2. Fireball [25 Damage]");
                     Console.WriteLine("3. Lightning [30 Damage]");
+                    Console.Write("> ");
                     input = Console.ReadKey().KeyChar;
                     if (input == '1')
                     {
                         float totalDamage = 20.0f;
-                        _mana -= _mana * 20.0f;
+                        _mana -= 20.0f;
                         damageTaken = monster.TakeDamage(totalDamage);
                         return damageTaken;
                     }
                     else if (input == '2')
                     {
                         float totalDamage = 25.0f;
-                        _mana -= _mana * 25.0f;
+                        _mana -= 25.0f;
                         damageTaken = monster.TakeDamage(totalDamage);
                         return damageTaken;
                     }
                     if (input == '3')
                     {
                         float totalDamage = 30.0f;
-                        _mana -= _mana * 30.0f;
+                        _mana -= 30.0f;
                         damageTaken = monster.TakeDamage(totalDamage);
                         return damageTaken;
                     }
@@ -75,18 +76,19 @@ namespace HelloWorld
                     Console.WriteLine("Choose a spell to cast");
                     Console.WriteLine("1. Frost [20 Damage]");
                     Console.WriteLine("2. Fireball [25 Damage]");
+                    Console.Write("> ");
                     input = Console.ReadKey().KeyChar;
                     if (input == '1')
                     {
                         float totalDamage = 20.0f;
-                        _mana -= _mana * 20.0f;
+                        _mana -= 20.0f;
                         damageTaken = monster.TakeDamage(totalDamage);
                         return damageTaken;
                     }
                     else if (input == '2')
                     {
                         float totalDamage = 25.0f;
-                        _mana -= _mana * 25.0f;
+                        _mana -= 25.0f;
                         damageTaken = monster.TakeDamage(totalDamage);
                         return damageTaken;
                     }
@@ -99,11 +101,12 @@ namespace HelloWorld
                 {
                     Console.WriteLine("Choose a spell to cast");
                     Console.WriteLine("1. Frost [20 Damage]");
+                    Console.Write("> ");
                     input = Console.ReadKey().KeyChar;
                     if (input == '1')
                     {
                         float totalDamage = 20.0f;
-                        _mana -= _mana * 20.0f;
+                        _mana -= 20.0f;
                         damageTaken = monster.TakeDamage(totalDamage);
                         return damageTaken;
                     }

@@ -28,5 +28,33 @@ namespace HelloWorld
             base.ViewStats();
             Console.WriteLine("Stamina: " + _stamina); ;
         }
+
+        public override float Attack(Monster monster)
+        {
+            float damageTaken = 0.0f;
+            if (_stamina >= 20)
+            {
+                char input = ' ';
+                while (input != '1' && input != '2')
+                {
+                    Console.WriteLine("1. Fast Attack [20 Damage]");
+                    Console.WriteLine("2. Normal Attack [10 Damage]");
+                    Console.Write("> ");
+                    input = Console.ReadKey().KeyChar;
+                    if (input == '1')
+                    {
+                        float totalDamage = 20.0f;
+                        _stamina -= 20.0f;
+                        damageTaken = monster.TakeDamage(totalDamage);
+                        return damageTaken;
+                    }
+                    else
+                    {
+                        damageTaken = base.Attack(monster);
+                    }
+                }
+            }
+            return damageTaken;
+        }
     }
 }

@@ -173,16 +173,6 @@ namespace HelloWorld
             _inventory[index] = item;
         }
 
-        //checks player inventory for specific items
-        public bool Contains(int itemIndex)
-        {
-            if (itemIndex > 0 && itemIndex < _inventory.Length)
-            {
-                return true;
-            }
-            return false;
-        }
-
         //Get player feed back when two options available
         Char GetInput(string option1, string option2, string query)
         {
@@ -444,7 +434,7 @@ namespace HelloWorld
                             input = GetInput("Offer apple", "Attack", "The sanke tells you that it doesn't wish to fight and just wants some food.");
                             if (input == '1')
                             {
-                                if (_inventory[_apple] == true;)
+                                if (_inventory.Equals(_apple))
                                 {
                                     Typeout("You take an apple, with a single bite in it, out of your bag and offer it to the snake.");
                                     input = GetInput("Run", "Attack", "The snake shakes its head and tells you that it doesn't want to eat the apple.");

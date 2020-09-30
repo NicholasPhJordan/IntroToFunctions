@@ -24,16 +24,33 @@ namespace HelloWorld
             _damage = damageVal;
         }
 
-        //return the character's/ player's name 
+        //return the character's/ monster's name 
         public string GetName()
         {
             return _name;
         }
 
+        //return the health val
         public float GetHealth()
         {
             return _health;
         }
 
+        //return the damage value
+        public float GetDamage()
+        {
+            return _damage;
+        }
+
+        //funtion used to apply damage to the players health
+        public virtual float TakeDamage(float damageVal)
+        {
+            _health -= damageVal;
+            if (_health < 0)
+            {
+                _health = 0;
+            }
+            return damageVal;
+        }
     }
 }

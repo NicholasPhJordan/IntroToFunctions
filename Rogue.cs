@@ -22,6 +22,10 @@ namespace HelloWorld
             _stamina = staminaVal;
         }
 
-
+        //override of viewstats that addes stamina 
+        public override void ViewStats()
+        {
+            Console.WriteLine("Mana: " + _stamina); ;
+        }
     }
 }

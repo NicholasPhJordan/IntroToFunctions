@@ -37,38 +37,78 @@ namespace HelloWorld
             _crazedThief = new Monster("Crazed Thief", 40.0f, 10.0f);
         }
 
-        //player chooses role
-        public void ChooseRole()
+
+
+
+
+        public Character ChooseName()
         {
+            //player chooses their name 
+            char input = ' ';
+            while (input != '1')
+            {
+                Console.Clear();
+                Typeout("Welcome! What is your name adventurer?");
+                Console.Write("> ");
+                string name = Console.ReadLine();
+                Character _player = new Character(name, "Adventurer", 100.0f, 10.0f);
+                Typeout("Do you wish to continue with this name?");
+                Console.WriteLine("1. Yes");
+                Console.WriteLine("2. No");
+                Console.Write("> ");
+                input = Console.ReadKey().KeyChar;
+            }
+            return _player;
+        }
+
+        public Character ChooseRole()
+        {
+            //player chooses role
             char input = ' ';
             while (input != '1' && input != '2' && input != '3')
             {
                 Console.Clear();
-                input = GetInput("Knight", "Rogue", "Wizard", _player.GetName() + " please select a Role.");
-                switch (input)
+                Typeout("Please select a role.");
+                Console.WriteLine("1. Knight");
+                Console.WriteLine("2. Rogue");
+                Console.WriteLine("3. Wizard");
+                Console.Write("> ");
+                input = Console.ReadKey().KeyChar;
+                if (input == '1')
                 {
-                    case '1':
-                        //gives knight stats to player
-                        _player = new Knight(_player.GetName(), "Knight", 100.0f, 10.0f);
-                        _sword.name = "Sword";
-                        AddItemToInventory(_sword, 0);
-                        break;
-                    case '2':
-                        //gives rogue stats to player
-                        _player = new Rogue(_player.GetName(), "Rougue", 90.0f, 10.0f, 100.0f);
-                        _daggers.name = "Daggers";
-                        AddItemToInventory(_daggers, 0);
-                        break;
-                    case '3':
-                        //gives the wizard stats to player
-                        _player = new Wizard(_player.GetName(), "Wizard", 80.0f, 10.0f, 100.0f);
-                        _staff.name = "Staff";
-                        AddItemToInventory(_staff, 0);
-                        break;
+                    //gives knight stats to player
+                    Character _player = new Knight(_player.GetName(), "Knight", 100.0f, 10.0f);
+                    _sword.name = "Sword";
+                    AddItemToInventory(_sword, 0);
                 }
-                Typeout("Hello " + _player.GetName() + " the mighty " + _player.GetRole() + "!");
+                else if (input == '2')
+                {
+                    //gives rogue stats to player
+                    Character _player = new Rogue(_player.GetName(), "Rougue", 90.0f, 10.0f, 100.0f);
+                    _daggers.name = "Daggers";
+                    AddItemToInventory(_daggers, 0);
+                }
+                if (input == '3')
+                {
+                    //gives the wizard stats to player
+                    Character _player = new Wizard(_player.GetName(), "Wizard", 80.0f, 10.0f, 100.0f);
+                    _staff.name = "Staff";
+                    AddItemToInventory(_staff, 0);
+                }
             }
+            return _player;
         }
+
+        //Function that gets player name and checks if they want to keep it
+        public Character CreateCharacter()
+        {
+            ChooseName();
+            ChooseRole();
+            return _player;
+        }
+
+
+
 
         //Adds typed out look to text
         //function that prints out message one leter at a time with a wait between each letter then goes to the next line
@@ -91,16 +131,16 @@ namespace HelloWorld
             while (_player.GetHealth() > 0 && monster.GetHealth() > 0)
             {
                 Console.Clear();
-                Console.WriteLine("Health: " + _player.GetHealth() + "               " + monster.GetName() + " Health: " + _monster.GetHealth());
+                Console.WriteLine("Health: " + _player.GetHealth() + "               " + monster.GetName() + " Health: " + monster.GetHealth());
                 Console.WriteLine("----------------------------------------------");
                 input = GetInput("Attack", "Defend", "What will you do?");
                 if (input == '1')
                 {
                     //attack with full damage and accept full damage
                     _player.Attack(monster);
-                    Typeout("The " + monster.GetName() + " took " +  + " damage!");
+                    Typeout("The " + monster.GetName() + " took " + monster.GetDamage() + " damage!");
                     //enemy attack
-                    _player.TakeDamage(monster);
+                    _player.TakeDamage(monster.GetDamage());
                     Typeout("You took " + monster + " damage!");
                     Console.Write("> ");
                     Console.ReadKey();
@@ -110,7 +150,7 @@ namespace HelloWorld
                 {
                     //deal no damage but take less damage from enemy
                     Typeout("You blocked and took less damage.");
-                    _player.TakeDamage(enemyDamage * 0.25f);
+                    _player.TakeDamage(monster.GetDamage() * 0.25f);
                     Console.Write("> ");
                     Console.ReadKey();
                 }
@@ -124,30 +164,12 @@ namespace HelloWorld
                 ClearScreen();
                 _gameOver = true;
             }
-            else if (enemyHealth <= 0.0f)
+            else if (monster.GetHealth() <= 0.0f)
             {
                 //if player wins
                 Typeout("You survived the battle!");
                 ClearScreen();
             }
-        }
-
-        //Function that gets player name and checks if they want to keep it
-        public Character CreateCharacter()
-        {
-            char input = ' ';
-            while (input != '1')
-            {
-                _player.ChooseName();
-                input = GetInput("Yes", "No", "Is this the name you wish to continue with?");
-            }
-            input = ' ';
-            while (input != '1')
-            {
-                ChooseRole();
-                input = GetInput("Yes", "No", "Is this the role you wish to continue with?");
-            }
-            return _player;
         }
 
         //Prints the player's inventory 
@@ -271,7 +293,7 @@ namespace HelloWorld
         public void Update()
         {
             //Charater set up
-            CreateCharacter();
+            _player = CreateCharacter();
             ClearScreen();
 
             //story intro

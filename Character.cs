@@ -34,16 +34,6 @@ namespace HelloWorld
         //FUNCTIONS USED FOR GETTING CHARACTER INFO
         ////////////////////////////////////////////
 
-        //function that allows the player to choose their name 
-        public void ChooseName()
-        {
-            Console.Clear();
-            Typeout("Welcome! What is your name adventurer?");
-            Console.Write("> ");
-            _name = Console.ReadLine();
-            Typeout("Hello " + _name);
-        }
-
         //prints out the character stats
         public virtual void ViewStats()
         {

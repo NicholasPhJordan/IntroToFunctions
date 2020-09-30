@@ -8,12 +8,16 @@ using System.IO;
 
 namespace HelloWorld
 {
+
+    struct Item { }
+
     class Game
     {
         //Variables that are used through out the game
         bool _gameOver = false;
         private Character _player;
         string area = " ";
+        private Item[] _inventory;
 
         //player chooses role
         public void ChooseRole()
@@ -31,26 +35,16 @@ namespace HelloWorld
                         break;
                     case '2':
                         //gives rogue stats to player
-                        _player = new Rogue();
+                        _player = new Rogue(_player.);
                         break;
                     case '3':
                         //gives the wizard stats to player
-                        _player = new Wizard();
-                        Character._role = "Wizard"; 
+                        _player = new Wizard(_player.GetName(), "Wizard", 80.0f, 10.0f, 100.0f);
                         break;
                 }
                 Typeout("Hello " + _player.GetName() + " the mighty " + _player.GetRole() + "!");
             }
         }
-
-
-
-
-
-
-
-
-
 
         //Adds typed out look to text
         //function that prints out message one leter at a time with a wait between each letter then goes to the next line
@@ -66,23 +60,24 @@ namespace HelloWorld
         }
 
         //Battle sequince that also declares enemy stats
-        void startBattle(string _enemyName = "none", float _enemyHealth = 0.0f, float _enemyDamage = 0.0f)
+        //takes enemy name health and damage
+        void startBattle(string enemyName = "none", float enemyHealth = 0.0f, float enemyDamage = 0.0f)
         {
             char input = ' ';
-            while (_player._health > 0 && _enemyHealth > 0)
+            while (_player.GetHealth() > 0 && enemyHealth > 0)
             {
                 Console.Clear();
-                Console.WriteLine("Health: " + _player.health + "               " + _enemyName + " Health: " + _enemyHealth);
+                Console.WriteLine("Health: " + _player.GetHealth() + "               " + enemyName + " Health: " + enemyHealth);
                 Console.WriteLine("----------------------------------------------");
                 input = GetInput("Attack", "Defend", "What will you do?");
                 if (input == '1')
                 {
                     //attack with full damage and accept full damage
-                    _enemyHealth -= _player.damage;
-                    Typeout("The " + _enemyName + " took " + _player.damage + " damage!");
+                    _player.Attack(enemyhealth);
+                    Typeout("The " + enemyName + " took " +  + " damage!");
                     //enemy attack
-                    _player.health -= _enemyDamage;
-                    Typeout("You took " + _enemyDamage + " damage!");
+                    _player.TakeDamage(enemyDamage);
+                    Typeout("You took " + enemyDamage + " damage!");
                     Console.Write("> ");
                     Console.ReadKey();
 
@@ -91,13 +86,13 @@ namespace HelloWorld
                 {
                     //deal no damage but take less damage from enemy
                     Typeout("You blocked and took less damage.");
-                    _player.health -= _enemyDamage * 0.25f;
+                    _player.TakeDamage(enemyDamage * 0.25f);
                     Console.Write("> ");
                     Console.ReadKey();
                 }
             }
             //conslusion of fight 
-            if (_player.health <= 0.0f)
+            if (_player.GetHealth() <= 0.0f)
             {
                 //if player looses
                 Typeout("You Died");
@@ -105,7 +100,7 @@ namespace HelloWorld
                 ClearScreen();
                 _gameOver = true;
             }
-            else if (_enemyHealth <= 0.0f)
+            else if (enemyHealth <= 0.0f)
             {
                 //if player wins
                 Typeout("You survived the battle!");
@@ -203,13 +198,13 @@ namespace HelloWorld
         //also used for performing start up tasks that should only be done once
         public void Start()
         {
-            Console.BackgroundColor = ConsoleColor.DarkGreen;
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.DarkGreen; //changes background to dark green
+            Console.ForegroundColor = ConsoleColor.White; //changes text to white
             Typeout("                                              ");
             Typeout("          T E X T  A D V E N T U R E          ");
             Typeout("                                              ");
             Console.ResetColor();
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Green; //changes text to green
             Console.WriteLine("          Press any key to start");
             Console.ReadKey();
             Console.Clear();
@@ -220,7 +215,7 @@ namespace HelloWorld
         public void Update()
         {
             //Charater set up
-            _player = CreateCharacter();
+            CreateCharacter();
             ClearScreen();
 
             //story intro

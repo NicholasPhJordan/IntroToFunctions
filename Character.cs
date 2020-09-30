@@ -63,6 +63,11 @@ namespace HelloWorld
             return _role;
         }
 
+        public float GetHealth()
+        {
+            return _health;
+        }
+
         //fUNCTIONS USED FOR BATTLE
 
         //functions that allows the player to attack the "enemy"

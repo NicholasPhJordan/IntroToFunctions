@@ -9,7 +9,10 @@ using System.IO;
 namespace HelloWorld
 {
 
-    struct Item { }
+    struct Item 
+    {
+        public string name;
+    }
 
     class Game
     {
@@ -18,6 +21,11 @@ namespace HelloWorld
         private Character _player;
         string area = " ";
         private Item[] _inventory;
+        private Item _staff;
+        private Item _daggers;
+        private Item _sword;
+        private Item _apple;
+        private Item _strangeCoin;
 
         //player chooses role
         public void ChooseRole()
@@ -31,15 +39,21 @@ namespace HelloWorld
                 {
                     case '1':
                         //gives knight stats to player
-                        _player = new Knight();
+                        _player = new Knight(_player.GetName(), "Knight", 100.0f, 10.0f);
+                        _sword.name = "Sword";
+                        AddItemToInventory(_sword, 0);
                         break;
                     case '2':
                         //gives rogue stats to player
-                        _player = new Rogue(_player.);
+                        _player = new Rogue(_player.GetName(), "Rougue", 90.0f, 10.0f);
+                        _daggers.name = "Daggers";
+                        AddItemToInventory(_daggers, 0);
                         break;
                     case '3':
                         //gives the wizard stats to player
                         _player = new Wizard(_player.GetName(), "Wizard", 80.0f, 10.0f, 100.0f);
+                        _staff.name = "Staff";
+                        AddItemToInventory(_staff, 0);
                         break;
                 }
                 Typeout("Hello " + _player.GetName() + " the mighty " + _player.GetRole() + "!");
@@ -109,23 +123,47 @@ namespace HelloWorld
         }
 
         //Function that gets player name and checks if they want to keep it
-        public Player CreateCharacter()
+        public Character CreateCharacter()
         {
-            Player player = new Player();
             char input = ' ';
             while (input != '1')
             {
-
-                player.ChooseName();
+                _player.ChooseName();
                 input = GetInput("Yes", "No", "Is this the name you wish to continue with?");
             }
             input = ' ';
             while (input != '1')
             {
-                player.ChooseRole();
+                ChooseRole();
                 input = GetInput("Yes", "No", "Is this the role you wish to continue with?");
             }
-            return player;
+            return _player;
+        }
+
+        //Prints the player's inventory 
+        public void PrintInventory(Item[] inventory)
+        {
+            Console.Write("\n");
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + inventory[i].name);
+            }
+        }
+
+        //allows us to add items to inventory
+        public void AddItemToInventory(Item item, int index)
+        {
+            _inventory[index] = item;
+        }
+
+        //checks player inventory for specific items
+        public bool Contains(int itemIndex)
+        {
+            if (itemIndex > 0 && itemIndex < _inventory.Length)
+            {
+                return true;
+            }
+            return false;
         }
 
         //Get player feed back when two options available
@@ -143,6 +181,7 @@ namespace HelloWorld
                 if (input == '3')
                 {
                     _player.ViewStats();
+                    PrintInventory(_inventory);
                 }
                 Console.WriteLine();
             }
@@ -165,6 +204,7 @@ namespace HelloWorld
                 if (input == '4')
                 {
                     _player.ViewStats();
+                    PrintInventory(_inventory);
                 }
                 Console.WriteLine();
             }
@@ -198,6 +238,11 @@ namespace HelloWorld
         //also used for performing start up tasks that should only be done once
         public void Start()
         {
+            //initialization of objects
+            _apple.name = "Apple";
+            _strangeCoin.name = "Strange Coin";
+
+            //opening "menu"
             Console.BackgroundColor = ConsoleColor.DarkGreen; //changes background to dark green
             Console.ForegroundColor = ConsoleColor.White; //changes text to white
             Typeout("                                              ");
@@ -237,8 +282,8 @@ namespace HelloWorld
                     if (input == '1')
                     {
                         Typeout("You take an apple and bite into it. The little girl smiles with large fang like teeth.");
-                        Typeout("Add apple to inventory");
-                        _player.inventory.Insert(0, "Apple ,");
+                        Typeout("Add Apple to inventory");
+                        AddItemToInventory(_apple, 1);
                         input = GetInput("Run Away", "Attack", "She throws off the little red hood and turns into a large wolf!");
                         if (input == '1')
                         {
@@ -293,8 +338,8 @@ namespace HelloWorld
                 else if (input == '2')
                 {
                     Typeout("You take an apple and bite into it. The little girl smiles with large fang like teeth.");
-                    Typeout("Add apple to inventory");
-                    _player.inventory.Insert(0, "Apple ,");
+                    Typeout("Add Apple to inventory");
+                    AddItemToInventory(_apple, 1);
                     input = GetInput("Run Away", "Attack", "She throws off the little red hood and turns into a large wolf!");
                     if (input == '1')
                     {
@@ -380,7 +425,7 @@ namespace HelloWorld
                             input = GetInput("Offer apple", "Attack", "The sanke tells you that it doesn't wish to fight and just wants some food.");
                             if (input == '1')
                             {
-                                if (_player.inventory.Contains("Apple ,"))
+                                if (Contains(1))
                                 {
                                     Typeout("You take an apple, with a single bite in it, out of your bag and offer it to the snake.");
                                     input = GetInput("Run", "Attack", "The snake shakes its head and tells you that it doesn't want to eat the apple.");
@@ -505,10 +550,10 @@ namespace HelloWorld
                     if (input == '1')
                     {
                         Typeout("You help up the old amn and realize he is blind.");
-                        Typeout("He looks at you with faded eyes and thanks you. He then waves his hand over your weapon " +
+                        Typeout("He looks at you with faded eyes and thanks you. He then gives you a strange golden coin " +
                             "before vanishing into a pillar of somke.");
-                        Typeout("+5 bounus damage");
-                        _player += 5.0f;
+                        Typeout("Add Strange Coin to inventory");
+                        AddItemToInventory(_strangeCoin, 2);
                         ClearScreen();
                     }
                     else if (input == '2')

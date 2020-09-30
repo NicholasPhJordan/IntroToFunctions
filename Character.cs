@@ -30,7 +30,9 @@ namespace HelloWorld
             _damage = damageVal;
         }
 
+        ////////////////////////////////////////////
         //FUNCTIONS USED FOR GETTING CHARACTER INFO
+        ////////////////////////////////////////////
 
         //function that allows the player to choose their name 
         public void ChooseName()
@@ -68,12 +70,14 @@ namespace HelloWorld
             return _health;
         }
 
+        ////////////////////////////
         //fUNCTIONS USED FOR BATTLE
+        ////////////////////////////
 
         //functions that allows the player to attack the "enemy"
-        public virtual float Attack(Character enemy)
+        public virtual float Attack(float enemyHealth)
         {
-            return enemy.TakeDamage(_damage);
+            return enemyHealth.TakeDamage(_damage);
         }
 
         //funtion used to apply damage to the players health
@@ -87,7 +91,9 @@ namespace HelloWorld
             return damageVal;
         }
 
+        /////////////////////////////////////////////////////////////
         //OTHER FUNCTIONS USED FOR DESIGN PURPOSES AND FUNCTIONALITY
+        /////////////////////////////////////////////////////////////
 
         //I did get this off the internet and I do understand what it's saying
         //Adds typed out look to text
@@ -118,6 +124,7 @@ namespace HelloWorld
                 if (input == '3')
                 {
                     ViewStats();
+                    PrintInventory(_inventory);
                 }
                 Console.WriteLine();
             }
@@ -140,6 +147,7 @@ namespace HelloWorld
                 if (input == '4')
                 {
                     ViewStats();
+                    PrintInventory(_inventory);
                 }
                 Console.WriteLine();
             }

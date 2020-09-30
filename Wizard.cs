@@ -30,7 +30,7 @@ namespace HelloWorld
 
         //override of the attack function for the wizard
         //allows the player as a wizard to choose a spell to cast based on the amount of mana they have
-        public override float Attack(Character enemy)
+        public override float Attack(Monster monster)
         {
             float damageTaken = 0.0f;
             if (_mana >= 30)
@@ -47,21 +47,21 @@ namespace HelloWorld
                     {
                         float totalDamage = 20.0f;
                         _mana -= _mana * 20.0f;
-                        damageTaken = enemy.TakeDamage(totalDamage);
+                        damageTaken = monster.TakeDamage(totalDamage);
                         return damageTaken;
                     }
                     else if (input == '2')
                     {
                         float totalDamage = 25.0f;
                         _mana -= _mana * 25.0f;
-                        damageTaken = enemy.TakeDamage(totalDamage);
+                        damageTaken = monster.TakeDamage(totalDamage);
                         return damageTaken;
                     }
                     if (input == '3')
                     {
                         float totalDamage = 30.0f;
                         _mana -= _mana * 30.0f;
-                        damageTaken = enemy.TakeDamage(totalDamage);
+                        damageTaken = monster.TakeDamage(totalDamage);
                         return damageTaken;
                     }
                 }
@@ -79,14 +79,14 @@ namespace HelloWorld
                     {
                         float totalDamage = 20.0f;
                         _mana -= _mana * 20.0f;
-                        damageTaken = enemy.TakeDamage(totalDamage);
+                        damageTaken = monster.TakeDamage(totalDamage);
                         return damageTaken;
                     }
                     else if (input == '2')
                     {
                         float totalDamage = 25.0f;
                         _mana -= _mana * 25.0f;
-                        damageTaken = enemy.TakeDamage(totalDamage);
+                        damageTaken = monster.TakeDamage(totalDamage);
                         return damageTaken;
                     }
                 }
@@ -103,12 +103,12 @@ namespace HelloWorld
                     {
                         float totalDamage = 20.0f;
                         _mana -= _mana * 20.0f;
-                        damageTaken = enemy.TakeDamage(totalDamage);
+                        damageTaken = monster.TakeDamage(totalDamage);
                         return damageTaken;
                     }
                 }
             }
-            damageTaken = base.Attack(enemy);
+            damageTaken = base.Attack(monster);
             return damageTaken;
         }
     }

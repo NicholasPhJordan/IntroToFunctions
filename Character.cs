@@ -75,9 +75,9 @@ namespace HelloWorld
         ////////////////////////////
 
         //functions that allows the player to attack the "enemy"
-        public virtual float Attack(float enemyHealth)
+        public virtual float Attack(Monster monster)
         {
-            return enemyHealth.TakeDamage(_damage);
+            return monster.TakeDamage(_damage);
         }
 
         //funtion used to apply damage to the players health
@@ -118,14 +118,8 @@ namespace HelloWorld
                 Typeout(query);
                 Console.WriteLine("1. " + option1);
                 Console.WriteLine("2. " + option2);
-                Console.WriteLine("3. View Stats");
                 Console.Write("> ");
                 input = Console.ReadKey().KeyChar;
-                if (input == '3')
-                {
-                    ViewStats();
-                    PrintInventory(_inventory);
-                }
                 Console.WriteLine();
             }
             return input;
@@ -141,14 +135,8 @@ namespace HelloWorld
                 Console.WriteLine("1. " + option1);
                 Console.WriteLine("2. " + option2);
                 Console.WriteLine("3. " + option3);
-                Console.WriteLine("4. View Stats");
                 Console.Write("> ");
                 input = Console.ReadKey().KeyChar;
-                if (input == '4')
-                {
-                    ViewStats();
-                    PrintInventory(_inventory);
-                }
                 Console.WriteLine();
             }
             return input;

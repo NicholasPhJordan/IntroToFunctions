@@ -19,6 +19,8 @@ namespace HelloWorld
         //Variables that are used through out the game
         bool _gameOver = false;
         private Character _player;
+        private Monster _snake;
+        private Monster _crazedThief;
         string area = " ";
         private Item[] _inventory;
         private Item _staff;
@@ -26,6 +28,14 @@ namespace HelloWorld
         private Item _sword;
         private Item _apple;
         private Item _strangeCoin;
+
+        public void Initialize()
+        {
+            _apple.name = "Apple";
+            _strangeCoin.name = "Strange Coin";
+            _snake = new Monster("Snake", 30.0f, 5.0f);
+            _crazedThief = new Monster("Crazed Thief", 40.0f, 10.0f);
+        }
 
         //player chooses role
         public void ChooseRole()
@@ -45,7 +55,7 @@ namespace HelloWorld
                         break;
                     case '2':
                         //gives rogue stats to player
-                        _player = new Rogue(_player.GetName(), "Rougue", 90.0f, 10.0f);
+                        _player = new Rogue(_player.GetName(), "Rougue", 90.0f, 10.0f, 100.0f);
                         _daggers.name = "Daggers";
                         AddItemToInventory(_daggers, 0);
                         break;
@@ -75,23 +85,23 @@ namespace HelloWorld
 
         //Battle sequince that also declares enemy stats
         //takes enemy name health and damage
-        void startBattle(string enemyName = "none", float enemyHealth = 0.0f, float enemyDamage = 0.0f)
+        void StartBattle(Monster monster)
         {
             char input = ' ';
-            while (_player.GetHealth() > 0 && enemyHealth > 0)
+            while (_player.GetHealth() > 0 && monster.GetHealth() > 0)
             {
                 Console.Clear();
-                Console.WriteLine("Health: " + _player.GetHealth() + "               " + enemyName + " Health: " + enemyHealth);
+                Console.WriteLine("Health: " + _player.GetHealth() + "               " + monster.GetName() + " Health: " + _monster.GetHealth());
                 Console.WriteLine("----------------------------------------------");
                 input = GetInput("Attack", "Defend", "What will you do?");
                 if (input == '1')
                 {
                     //attack with full damage and accept full damage
-                    _player.Attack(enemyhealth);
-                    Typeout("The " + enemyName + " took " +  + " damage!");
+                    _player.Attack(monster);
+                    Typeout("The " + monster.GetName() + " took " +  + " damage!");
                     //enemy attack
-                    _player.TakeDamage(enemyDamage);
-                    Typeout("You took " + enemyDamage + " damage!");
+                    _player.TakeDamage(monster);
+                    Typeout("You took " + monster + " damage!");
                     Console.Write("> ");
                     Console.ReadKey();
 
@@ -220,6 +230,7 @@ namespace HelloWorld
             Console.Clear();
         }
 
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
         //Run the game
         public void Run()
         {
@@ -233,14 +244,14 @@ namespace HelloWorld
             End();
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
         //Performed once when the game begins
         //used for initalizing variables 
         //also used for performing start up tasks that should only be done once
         public void Start()
         {
-            //initialization of objects
-            _apple.name = "Apple";
-            _strangeCoin.name = "Strange Coin";
+            //initializes items and monsters for the game to use
+            Initialize();
 
             //opening "menu"
             Console.BackgroundColor = ConsoleColor.DarkGreen; //changes background to dark green
@@ -264,9 +275,9 @@ namespace HelloWorld
             ClearScreen();
 
             //story intro
-            Typeout("After many years of living in the safety of your home village, " +
-                "you head off on a mighty quest through unknown lands where monsters, thieves, and many other dangers live. " +
-                "There is also untold amounts of glory and riches for those who survive and return from this perilous quest.");
+            Typeout("After many years of living in the saftey of your village, you've never had your skills tested as you will on the upcoming task. " +
+                "A Drake has moved into the local area and causing havoc. Thieves, monsters, and many other troubles have come out of hiding with this new threat looming over. " +
+                "It is now up to you and you alone to save everyone! ");
             Typeout("Good Luck!");
             ClearScreen();
 
@@ -436,7 +447,7 @@ namespace HelloWorld
                                         Console.Write("> ");
                                         Console.ReadKey();
                                         Console.Clear();
-                                        startBattle("Snake", 30.0f, 5.0f);
+                                        StartBattle(_snake);
                                     }
                                     else if (input == '2')
                                     {
@@ -444,7 +455,7 @@ namespace HelloWorld
                                         Console.Write("> ");
                                         Console.ReadKey();
                                         Console.Clear();
-                                        startBattle("Snake", 30.0f, 5.0f);
+                                        StartBattle(_snake);
                                     }
                                 }
                                 else
@@ -458,7 +469,7 @@ namespace HelloWorld
                                         Console.Write("> ");
                                         Console.ReadKey();
                                         Console.Clear();
-                                        startBattle("Snake", 30.0f, 5.0f);
+                                        StartBattle(_snake);
                                     }
                                     else if (input == '2')
                                     {
@@ -466,7 +477,7 @@ namespace HelloWorld
                                         Console.Write("> ");
                                         Console.ReadKey();
                                         Console.Clear();
-                                        startBattle("Snake", 30.0f, 5.0f);
+                                        StartBattle(_snake);
                                     }
                                 }
                             }
@@ -483,7 +494,7 @@ namespace HelloWorld
                                 Console.Write("> ");
                                 Console.ReadKey();
                                 Console.Clear();
-                                startBattle("Snake", 30.0f, 5.0f);
+                                StartBattle(_snake);
                             }
                             else if (input == '2')
                             {
@@ -491,7 +502,7 @@ namespace HelloWorld
                                 Console.Write("> ");
                                 Console.ReadKey();
                                 Console.Clear();
-                                startBattle("Snake", 30.0f, 5.0f);
+                                StartBattle(_snake);
                             }
                         }
                     }
@@ -502,7 +513,7 @@ namespace HelloWorld
                         Console.Write("> ");
                         Console.ReadKey();
                         Console.Clear();
-                        startBattle("Snake", 30.0f, 5.0f);
+                        StartBattle(_snake);
                     }
                     if (input == '3')
                     {
@@ -510,7 +521,7 @@ namespace HelloWorld
                         Console.Write("> ");
                         Console.ReadKey();
                         Console.Clear();
-                        startBattle("Snake", 30.0f, 5.0f);
+                        StartBattle(_snake);
                     }
                 }
 
@@ -622,7 +633,7 @@ namespace HelloWorld
                                         Console.Write("> ");
                                         Console.ReadKey();
                                         Console.Clear();
-                                        startBattle("Crazed Thief", 40.0f, 10.0f);
+                                        StartBattle(_crazedThief);
                                     }
                                     else if (input == '2')
                                     {
@@ -631,7 +642,7 @@ namespace HelloWorld
                                         Console.Write("> ");
                                         Console.ReadKey();
                                         Console.Clear();
-                                        startBattle("Crazed Thief", 40.0f, 10.0f);
+                                        StartBattle(_crazedThief);
                                     }
                                 }
                                 else if (input == '2')
@@ -643,7 +654,7 @@ namespace HelloWorld
                                     Console.Write("> ");
                                     Console.ReadKey();
                                     Console.Clear();
-                                    startBattle("Crazed Thief", 40.0f, 10.0f);
+                                    StartBattle(_crazedThief);
                                 }
                                 if (input == '3')
                                 {
@@ -652,7 +663,7 @@ namespace HelloWorld
                                     Console.Write("> ");
                                     Console.ReadKey();
                                     Console.Clear();
-                                    startBattle("Crazed Thief", 40.0f, 10.0f);
+                                    StartBattle(_crazedThief);
                                 }
                             }
                             else
@@ -667,7 +678,7 @@ namespace HelloWorld
                                     Console.Write("> ");
                                     Console.ReadKey();
                                     Console.Clear();
-                                    startBattle("Crazed Thief", 40.0f, 10.0f);
+                                    StartBattle(_crazedThief);
                                 }
                                 else if (input == '2')
                                 {
@@ -678,7 +689,7 @@ namespace HelloWorld
                                     Console.Write("> ");
                                     Console.ReadKey();
                                     Console.Clear();
-                                    startBattle("Crazed Thief", 40.0f, 10.0f);
+                                    StartBattle(_crazedThief);
                                 }
                                 else if (input == '3')
                                 {
@@ -687,7 +698,7 @@ namespace HelloWorld
                                     Console.Write("> ");
                                     Console.ReadKey();
                                     Console.Clear();
-                                    startBattle("Crazed Thief", 40.0f, 10.0f);
+                                    StartBattle(_crazedThief);
                                 }
                             }
                         }
@@ -701,7 +712,7 @@ namespace HelloWorld
                             Console.Write("> ");
                             Console.ReadKey();
                             Console.Clear();
-                            startBattle("Crazed Thief", 40.0f, 10.0f);
+                            StartBattle(_crazedThief);
                         }
                         if (input == '3')
                         {
@@ -710,7 +721,7 @@ namespace HelloWorld
                             Console.Write("> ");
                             Console.ReadKey();
                             Console.Clear();
-                            startBattle("Crazed Thief", 35.0f, 10.0f);
+                            StartBattle(_crazedThief);
                         }
                     }
                     else if (input == '2')
@@ -723,7 +734,7 @@ namespace HelloWorld
                         Console.Write("> ");
                         Console.ReadKey();
                         Console.Clear();
-                        startBattle("Crazed Thief", 40.0f, 10.0f);
+                        StartBattle(_crazedThief);
                     }
                     if (input == '3')
                     {
@@ -732,7 +743,7 @@ namespace HelloWorld
                         Console.Write("> ");
                         Console.ReadKey();
                         Console.Clear();
-                        startBattle("Crazed Thief", 35.0f, 10.0f);
+                        StartBattle(_crazedThief);
                     }
                 }
 
@@ -762,6 +773,7 @@ namespace HelloWorld
 
         }
 
+        /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //Performed once when the game ends
         public void End()
         {

@@ -6,15 +6,22 @@ namespace HelloWorld
 {
     class Rogue : Character
     {
+        //adds stamina to character stats
+        private float _stamina;
+
         //rogue constructor 
         public Rogue() : base()
         {
+            _stamina = 100.0f;
         }
 
         //rogue constructor overload
-        public Rogue(string nameVal, string roleVal, float healthVal, float damageVal)
+        public Rogue(string nameVal, string roleVal, float healthVal, float damageVal, float staminaVal)
             : base(nameVal, roleVal, healthVal, damageVal)
         {
+            _stamina = staminaVal;
         }
+
+
     }
 }

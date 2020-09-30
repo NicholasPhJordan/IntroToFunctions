@@ -25,6 +25,7 @@ namespace HelloWorld
         //override of viewstats that addes mana 
         public override void ViewStats()
         {
+            base.ViewStats();
             Console.WriteLine("Mana: " + _mana); ;
         }
 

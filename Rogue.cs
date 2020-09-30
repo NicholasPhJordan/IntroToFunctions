@@ -25,7 +25,8 @@ namespace HelloWorld
         //override of viewstats that addes stamina 
         public override void ViewStats()
         {
-            Console.WriteLine("Mana: " + _stamina); ;
+            base.ViewStats();
+            Console.WriteLine("Stamina: " + _stamina); ;
         }
     }
 }

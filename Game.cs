@@ -35,13 +35,11 @@ namespace HelloWorld
             _strangeCoin.name = "Strange Coin";
             _snake = new Monster("Snake", 30.0f, 5.0f);
             _crazedThief = new Monster("Crazed Thief", 40.0f, 10.0f);
+            _inventory = new Item[5];
         }
 
-
-
-
-
-        public Character ChooseName()
+        //funtion that takes player input to create character
+        public Character CreateCharacter()
         {
             //player chooses their name 
             char input = ' ';
@@ -51,68 +49,59 @@ namespace HelloWorld
                 Typeout("Welcome! What is your name adventurer?");
                 Console.Write("> ");
                 string name = Console.ReadLine();
-                Character _player = new Character(name, "Adventurer", 100.0f, 10.0f);
-                Typeout("Do you wish to continue with this name?");
+                //player chooses role
+                string role = "";
+                while (input != '1' && input != '2' && input != '3')
+                {
+                    Console.Clear();
+                    Typeout("Please select a role.");
+                    Console.WriteLine("1. Knight");
+                    Console.WriteLine("2. Rogue");
+                    Console.WriteLine("3. Wizard");
+                    Console.Write("> ");
+                    input = Console.ReadKey().KeyChar;
+                    if (input == '1')
+                    {
+                        //gives knight stats to player
+                        role = "Knight";
+                        _player = new Knight(name, role, 100.0f, 10.0f);
+                        _sword.name = "Sword";
+                        AddItemToInventory(_sword, 0);
+                    }
+                    else if (input == '2')
+                    {
+                        //gives rogue stats to player
+                        role = "Rogue";
+                        _player = new Rogue(name, role, 90.0f, 10.0f, 100.0f);
+                        _daggers.name = "Daggers";
+                        AddItemToInventory(_daggers, 0);
+                    }
+                    if (input == '3')
+                    {
+                        //gives the wizard stats to player
+                        role = "Wizard";
+                        _player = new Wizard(name, role, 80.0f, 10.0f, 100.0f);
+                        _staff.name = "Staff";
+                        AddItemToInventory(_staff, 0);
+                    }
+                }
+                Console.WriteLine();
+                input = ' ';
+                Typeout("Is this the character you wish to play?");
+                Typeout(name + " the mighty " + role);
                 Console.WriteLine("1. Yes");
                 Console.WriteLine("2. No");
                 Console.Write("> ");
                 input = Console.ReadKey().KeyChar;
+                Console.WriteLine();
             }
             return _player;
         }
 
-        public Character ChooseRole()
-        {
-            //player chooses role
-            char input = ' ';
-            while (input != '1' && input != '2' && input != '3')
-            {
-                Console.Clear();
-                Typeout("Please select a role.");
-                Console.WriteLine("1. Knight");
-                Console.WriteLine("2. Rogue");
-                Console.WriteLine("3. Wizard");
-                Console.Write("> ");
-                input = Console.ReadKey().KeyChar;
-                if (input == '1')
-                {
-                    //gives knight stats to player
-                    Character _player = new Knight(_player.GetName(), "Knight", 100.0f, 10.0f);
-                    _sword.name = "Sword";
-                    AddItemToInventory(_sword, 0);
-                }
-                else if (input == '2')
-                {
-                    //gives rogue stats to player
-                    Character _player = new Rogue(_player.GetName(), "Rougue", 90.0f, 10.0f, 100.0f);
-                    _daggers.name = "Daggers";
-                    AddItemToInventory(_daggers, 0);
-                }
-                if (input == '3')
-                {
-                    //gives the wizard stats to player
-                    Character _player = new Wizard(_player.GetName(), "Wizard", 80.0f, 10.0f, 100.0f);
-                    _staff.name = "Staff";
-                    AddItemToInventory(_staff, 0);
-                }
-            }
-            return _player;
-        }
-
-        //Function that gets player name and checks if they want to keep it
-        public Character CreateCharacter()
-        {
-            ChooseName();
-            ChooseRole();
-            return _player;
-        }
-
-
-
-
+        //I did get this off the internet and I do understand what it's saying
         //Adds typed out look to text
-        //function that prints out message one leter at a time with a wait between each letter then goes to the next line
-        //i did get this off the internet and for the most part i do understand what it's saying
+        //function that takes a string and prints out one character at a time with a slight pause between each character then prints a new line
+        //https://stackoverflow.com/questions/25337336/how-to-make-text-be-typed-out-in-console-application site i got info from
         static void Typeout(string message)
         {
             for (int i = 0; i < message.Length; i++)
@@ -138,10 +127,8 @@ namespace HelloWorld
                 {
                     //attack with full damage and accept full damage
                     _player.Attack(monster);
-                    Typeout("The " + monster.GetName() + " took " + monster.GetDamage() + " damage!");
                     //enemy attack
                     _player.TakeDamage(monster.GetDamage());
-                    Typeout("You took " + monster + " damage!");
                     Console.Write("> ");
                     Console.ReadKey();
 
@@ -149,7 +136,6 @@ namespace HelloWorld
                 else if (input == '2')
                 {
                     //deal no damage but take less damage from enemy
-                    Typeout("You blocked and took less damage.");
                     _player.TakeDamage(monster.GetDamage() * 0.25f);
                     Console.Write("> ");
                     Console.ReadKey();
@@ -175,7 +161,6 @@ namespace HelloWorld
         //Prints the player's inventory 
         public void PrintInventory(Item[] inventory)
         {
-            Console.Write("\n");
             for (int i = 0; i < inventory.Length; i++)
             {
                 Console.WriteLine((i + 1) + ". " + inventory[i].name);
@@ -212,6 +197,7 @@ namespace HelloWorld
                 input = Console.ReadKey().KeyChar;
                 if (input == '3')
                 {
+                    Console.WriteLine();
                     _player.ViewStats();
                     PrintInventory(_inventory);
                 }
@@ -458,7 +444,7 @@ namespace HelloWorld
                             input = GetInput("Offer apple", "Attack", "The sanke tells you that it doesn't wish to fight and just wants some food.");
                             if (input == '1')
                             {
-                                if (Contains(1))
+                                if (_inventory[_apple] == true;)
                                 {
                                     Typeout("You take an apple, with a single bite in it, out of your bag and offer it to the snake.");
                                     input = GetInput("Run", "Attack", "The snake shakes its head and tells you that it doesn't want to eat the apple.");

@@ -32,7 +32,37 @@ namespace HelloWorld
         public override float Attack(Monster monster)
         {
             float damageTaken = 0.0f;
-            if (_stamina >= 20)
+            if (_stamina >= 30.0f)
+            {
+                char input = ' ';
+                while (input != '1' && input != '2' && input != '3')
+                {
+                    Console.WriteLine("1. Back Stab [30 Damage]");
+                    Console.WriteLine("2. Fast Attack [20 Damage]");
+                    Console.WriteLine("3. Normal Attack [10 Damage]");
+                    Console.Write("> ");
+                    input = Console.ReadKey().KeyChar;
+                    if (input == '1')
+                    {
+                        float totalDamage = 30.0f;
+                        _stamina -= 30.0f;
+                        damageTaken = monster.TakeDamage(totalDamage);
+                        return damageTaken;
+                    }
+                    else if (input == '2')
+                    {
+                        float totalDamage = 20.0f;
+                        _stamina -= 20.0f;
+                        damageTaken = monster.TakeDamage(totalDamage);
+                        return damageTaken;
+                    }
+                    else
+                    {
+                        damageTaken = base.Attack(monster);
+                    }
+                }
+            }
+            else if (_stamina >= 20.0f)
             {
                 char input = ' ';
                 while (input != '1' && input != '2')

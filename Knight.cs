@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace HelloWorld
 {
@@ -92,6 +93,22 @@ namespace HelloWorld
                 }
             }
             return damageTaken;
+        }
+
+        public override void Save(StreamWriter writer)
+        {
+            //Save the characters stats for knight
+            base.Save(writer);
+            writer.WriteLine(_rage);
+        }
+
+        public override bool Load(StreamReader reader)
+        {
+            //Create variables to store loaded data.
+            base.Load(reader);
+            float rage = 0;
+            _rage = rage;
+            return true;
         }
     }
 }

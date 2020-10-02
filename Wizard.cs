@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace HelloWorld
 {
@@ -122,5 +123,22 @@ namespace HelloWorld
             damageTaken = base.Attack(monster);
             return damageTaken;
         }
+
+        public override void Save(StreamWriter writer)
+        {
+            //Save the characters stats for knight
+            base.Save(writer);
+            writer.WriteLine(_mana);
+        }
+
+        public override bool Load(StreamReader reader)
+        {
+            //Create variables to store loaded data.
+            base.Load(reader);
+            float mana = 0;
+            _mana = mana;
+            return true;
+        }
+
     }
 }

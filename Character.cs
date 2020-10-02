@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace HelloWorld
 {
@@ -33,6 +34,46 @@ namespace HelloWorld
             _gold = goldVal;
         }
 
+        ///////////////////////////////////////////////////
+        //Saving and loading
+        //////////////////////////////////////////////////
+
+        public virtual void Save(StreamWriter writer)
+        {
+            //Save the characters stats
+            writer.WriteLine(_name);
+            writer.WriteLine(_role);
+            writer.WriteLine(_health);
+            writer.WriteLine(_damage);
+            writer.WriteLine(_gold);
+        }
+
+        public virtual bool Load(StreamReader reader)
+        {
+            //Create variables to store loaded data.
+            string name = reader.ReadLine();
+            string role = "Adventurer";
+            float damage = 0;
+            float health = 0;
+            int gold = 0;
+            //Checks to see if loading was successful.
+            if (float.TryParse(reader.ReadLine(), out health) == false)
+            {
+                return false;
+            }
+            if (float.TryParse(reader.ReadLine(), out damage) == false)
+            {
+                return false;
+            }
+            //If successful, set update the member variables and return true.
+            _name = name;
+            _role = role;
+            _damage = damage;
+            _health = health;
+            _gold = gold;
+            return true;
+        }
+
         ////////////////////////////////////////////
         //FUNCTIONS USED FOR GETTING CHARACTER INFO
         ////////////////////////////////////////////
@@ -40,7 +81,7 @@ namespace HelloWorld
         //prints out the character stats
         public virtual void ViewStats()
         {
-            Console.WriteLine("Name: " + _name);
+            Console.WriteLine("\nName: " + _name);
             Console.WriteLine("Role: " + _role);
             Console.WriteLine("Health: " + _health);
             Console.WriteLine("Damage: " + _damage);

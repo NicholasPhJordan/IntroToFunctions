@@ -26,7 +26,7 @@ namespace HelloWorld
         private Monster _goblins;
         private Monster _wolf;
         private Monster _dragon;
-        string area = " ";
+        public string area = " ";
         private Item[] _inventory;
         private Item _staff;
         private Item _daggers;
@@ -59,8 +59,22 @@ namespace HelloWorld
         //funtion that takes player input to create character
         public Character CreateCharacter()
         {
-            //player chooses their name 
             char input = ' ';
+            while (input != '1' && input != '2')
+            {
+                Typeout("What do you want to do?");
+                Console.WriteLine("1. Creat new character");
+                Console.WriteLine("2. Load Character");
+                Console.Write("> ");
+                input = Console.ReadKey().KeyChar;
+                if (input == '2')
+                {
+                    _player = new Character();
+                    Load();
+                }
+            }
+            //player chooses their name 
+            input = ' ';
             while (input != '1')
             {
                 Console.Clear();
@@ -289,6 +303,26 @@ namespace HelloWorld
             Console.Write("> ");
             Console.ReadKey();
             Console.Clear();
+        }
+
+        public void Save()
+        {
+            //Create a new stream writer.
+            StreamWriter writer = new StreamWriter("SaveData.txt");
+            //Call save for both instances for player.
+            _player.Save(writer);
+            //Close writer.
+            writer.Close();
+        }
+
+        public void Load()
+        {
+            //Create a new stream reader.
+            StreamReader reader = new StreamReader("SaveData.txt");
+            //Call load for each instance of player to load data.
+            _player.Load(reader);
+            //Close reader
+            reader.Close();
         }
 
         //Code from the ShopRPG Not doing a shop for my final project. Just wanted a shop in my game
@@ -565,12 +599,14 @@ namespace HelloWorld
                 {
                     Typeout("You decide to go left toward the Tall Grassy Meadow.");
                     area = "Tall Grassy Meadow";
+                    Save();
                     ClearScreen();
                 }
                 else if (input == '2')
                 {
                     Typeout("You decide to go right toward the Dark Woods,");
                     area = "Dark Woods";
+                    Save();
                     ClearScreen();
                 }
             }
@@ -694,12 +730,14 @@ namespace HelloWorld
                     {
                         Typeout("You decide to go toward the Camp.");
                         area = "Camp";
+                        Save();
                         ClearScreen();
                     }
                     else if (input == '2')
                     {
                         Typeout("You decide to go toward the Creek.");
                         area = "Creek";
+                        Save();
                         ClearScreen();
                     }
                 }
@@ -1092,6 +1130,7 @@ namespace HelloWorld
                     {
                         Typeout("You decide to head towrd the Light Woods");
                         area = "Light Woods";
+                        Save();
                         ClearScreen();
                     }
                 }
@@ -1337,6 +1376,7 @@ namespace HelloWorld
             //Village area
             while (area == "Village")
             {
+                Save();
                 Typeout("You enter the village and see people bustling around. Even a drogon doesn't stop people from living out their lives. Although the knights look tired. " +
                     "Necks hurt and eyes dried from watching the sky for dragons.");
                 input = ' ';
@@ -1443,6 +1483,7 @@ namespace HelloWorld
             //Uphill area
             while (area == "Uphill")
             {
+                Save();
                 Typeout("You begain walking up hill. After hours of walking upward, you finally racher the top of the cliff. " +
                     "In the distance you can see a large burning field with a mighty dragon sitting in the center. " +
                     "You continue walking when you hear a snarl and turn to see a large black wolf with a little red hood in its mouth.");
@@ -1479,6 +1520,7 @@ namespace HelloWorld
             //DownHill Area
             while (area == "Downhill")
             {
+                Save();
                 Typeout("You begain walking down hill and come to the bottom of the cliff. " +
                     "You see a group of goblins coming in and out of a cave at the base of the cliff.");
                 input = ' ';
@@ -1544,6 +1586,7 @@ namespace HelloWorld
             //Boss Area
             while (area == "Boss")
             {
+                Save();
                 Typeout("You walk across the burning field and soon come upon the mighty dragon! It stands tall before you, ready to get this over with.");
                 Typeout("Prepare for a fight and good luck!");
                 Console.Write("> ");

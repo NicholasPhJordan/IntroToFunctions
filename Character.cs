@@ -11,6 +11,7 @@ namespace HelloWorld
         private string _role;
         private float _health;
         protected float _damage;
+        private int _gold;
 
         //character constructor
         public Character()
@@ -19,15 +20,17 @@ namespace HelloWorld
             _role = "Adventurer";
             _health = 100.0f;
             _damage = 10.0f;
+            _gold = 4;
         }
 
         //constructor overload
-        public Character(string nameVal, string roleVal, float healthVal, float damageVal)
+        public Character(string nameVal, string roleVal, float healthVal, float damageVal, int goldVal)
         {
             _name = nameVal;
             _role = roleVal;
             _health = healthVal;
             _damage = damageVal;
+            _gold = goldVal;
         }
 
         ////////////////////////////////////////////
@@ -58,6 +61,12 @@ namespace HelloWorld
         public float GetHealth()
         {
             return _health;
+        }
+
+        //gets the amount of gold the player has
+        public int GetGold()
+        {
+            return _gold;
         }
 
         ////////////////////////////
@@ -145,5 +154,6 @@ namespace HelloWorld
             Console.ReadKey();
             Console.Clear();
         }
+
     }
 }

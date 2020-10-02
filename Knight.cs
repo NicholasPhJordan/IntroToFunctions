@@ -16,10 +16,10 @@ namespace HelloWorld
         }
 
         //rogue constructor overload
-        public Knight(string nameVal, string roleVal, float healthVal, float damageVal, float staminaVal)
-            : base(nameVal, roleVal, healthVal, damageVal)
+        public Knight(string nameVal, string roleVal, float healthVal, float damageVal, int goldVal, float rageVal)
+            : base(nameVal, roleVal, healthVal, damageVal, goldVal)
         {
-            _rage = staminaVal;
+            _rage = rageVal;
         }
 
         //override of viewstats that addes stamina 

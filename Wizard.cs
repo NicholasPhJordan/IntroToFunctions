@@ -16,8 +16,8 @@ namespace HelloWorld
         }
 
         //adds mana to character overload constructor
-        public Wizard(string nameVal, string roleVal, float healthVal, float damageVal, float manaVal)
-            : base(nameVal, roleVal, healthVal, damageVal)
+        public Wizard(string nameVal, string roleVal, float healthVal, float damageVal, int goldVal, float manaVal)
+            : base(nameVal, roleVal, healthVal, damageVal, goldVal)
         {
             _mana = manaVal;
         }

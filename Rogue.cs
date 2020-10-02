@@ -16,8 +16,8 @@ namespace HelloWorld
         }
 
         //rogue constructor overload
-        public Rogue(string nameVal, string roleVal, float healthVal, float damageVal, float staminaVal)
-            : base(nameVal, roleVal, healthVal, damageVal)
+        public Rogue(string nameVal, string roleVal, float healthVal, float damageVal, int goldVal,float staminaVal)
+            : base(nameVal, roleVal, healthVal, damageVal, goldVal)
         {
             _stamina = staminaVal;
         }

@@ -12,12 +12,14 @@ namespace HelloWorld
     struct Item
     {
         public string name;
+        public int cost;
     }
 
     class Game
     {
         //Variables that are used through out the game
         bool _gameOver = false;
+        private Shop _shop;
         private Character _player;
         private Monster _snake;
         private Monster _crazedThief;
@@ -31,6 +33,10 @@ namespace HelloWorld
         private Item _sword;
         private Item _apple;
         private Item _strangeCoin;
+        private Item[] _shopInventory;
+        private Item _arrow;
+        private Item _shield;
+        private Item _bow;
 
         public void Initialize()
         {
@@ -42,6 +48,12 @@ namespace HelloWorld
             _wolf = new Monster("Wolf", 60.0f, 15.0f, "simple");
             _dragon = new Monster("Dragon", 100.0f, 20.0f, "boss");
             _inventory = new Item[5];
+            _arrow.name = "Arrow";
+            _arrow.cost = 1;
+            _shield.name = "Shield";
+            _shield.cost = 1;
+            _bow.name = "Bow";
+            _bow.cost = 1;
         }
 
         //funtion that takes player input to create character
@@ -70,7 +82,7 @@ namespace HelloWorld
                     {
                         //gives knight stats to player
                         role = "Knight";
-                        _player = new Knight(name, role, 100.0f, 10.0f, 100.0f);
+                        _player = new Knight(name, role, 100.0f, 10.0f, 20, 100.0f);
                         _sword.name = "Sword";
                         AddItemToInventory(_sword, 0);
                     }
@@ -78,7 +90,7 @@ namespace HelloWorld
                     {
                         //gives rogue stats to player
                         role = "Rogue";
-                        _player = new Rogue(name, role, 90.0f, 10.0f, 100.0f);
+                        _player = new Rogue(name, role, 90.0f, 10.0f, 20, 100.0f);
                         _daggers.name = "Daggers";
                         AddItemToInventory(_daggers, 0);
                     }
@@ -86,7 +98,7 @@ namespace HelloWorld
                     {
                         //gives the wizard stats to player
                         role = "Wizard";
-                        _player = new Wizard(name, role, 80.0f, 10.0f, 100.0f);
+                        _player = new Wizard(name, role, 80.0f, 10.0f, 20, 100.0f);
                         _staff.name = "Staff";
                         AddItemToInventory(_staff, 0);
                     }
@@ -279,6 +291,97 @@ namespace HelloWorld
             Console.Clear();
         }
 
+        //Code from the ShopRPG Not doing a shop for my final project. Just wanted a shop in my game
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        public bool Buy(Item item, int index)
+        {
+            if (_gold > item.cost)
+            {
+                _gold -= item.cost;
+                _inventory[index] = item;
+                return true;
+            }
+            return false;
+        }
+
+        private void OpenShopMenu()
+        {
+            //Print a welcome message and all the choices to the screen
+            Console.WriteLine("Welcome! What would you like dearie. The old woman behind the counter says.");
+            PrintInventory(_shopInventory);
+
+            //Get player input
+            char input = Console.ReadKey().KeyChar;
+
+            //Set itemIndex to be the indec the player selected
+            int itemIndex = -1;
+            switch (input)
+            {
+                case '1':
+                    {
+                        itemIndex = 0;
+                        break;
+                    }
+                case '2':
+                    {
+                        itemIndex = 1;
+                        break;
+                    }
+                case '3':
+                    {
+                        itemIndex = 2;
+                        break;
+                    }
+                default:
+                    {
+                        return;
+                    }
+            }
+
+            //If the player can't afford the item print a message to let them know
+            if (_player.GetGold() < _shopInventory[itemIndex].cost)
+            {
+                Console.WriteLine("You cant afford this.");
+                return;
+            }
+
+            //Ask the player to replace a slot in their own inventory
+            Console.WriteLine("Choose a slot to replace.");
+            PrintInventory(_inventory);
+            //Get player input
+            input = Console.ReadKey().KeyChar;
+
+            //Set the value of the playerIndex based on the player's choice
+            int playerIndex = -1;
+            switch (input)
+            {
+                case '1':
+                    {
+                        playerIndex = 0;
+                        break;
+                    }
+                case '2':
+                    {
+                        playerIndex = 1;
+                        break;
+                    }
+                case '3':
+                    {
+                        playerIndex = 2;
+                        break;
+                    }
+                default:
+                    {
+                        return;
+                    }
+            }
+
+            //Sell item to player and replace the weapon at the index with the newly purchased weapon
+            _shop.Sell(_player, itemIndex, playerIndex);
+        }
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////
         //Run the game
         public void Run()
@@ -301,6 +404,8 @@ namespace HelloWorld
         {
             //initializes items and monsters for the game to use
             Initialize();
+            _shopInventory = new Item[] { _arrow, _shield, _bow };
+            _shop = new Shop(_shopInventory);
 
             //opening "menu"
             Console.BackgroundColor = ConsoleColor.DarkGreen; //changes background to dark green

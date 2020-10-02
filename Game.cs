@@ -955,6 +955,7 @@ namespace HelloWorld
         public void End()
         {
             Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine();
             Typeout("G A M E  O V E R");
         }
     }

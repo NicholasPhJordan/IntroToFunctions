@@ -22,7 +22,7 @@ namespace HelloWorld
         private Monster _snake;
         private Monster _crazedThief;
         private Monster _goblins;
-        private Monster _griffon;
+        private Monster _wolf;
         private Monster _dragon;
         string area = " ";
         private Item[] _inventory;
@@ -36,11 +36,11 @@ namespace HelloWorld
         {
             _apple.name = "Apple";
             _strangeCoin.name = "Strange Coin";
-            _snake = new Monster("Snake", 30.0f, 5.0f);
-            _crazedThief = new Monster("Crazed Thief", 40.0f, 10.0f);
-            _goblins = new Monster("Goblins", 50.0f, 10.0f);
-            _griffon = new Monster("Griffon", 60.0f, 15.0f);
-            _dragon = new Monster("Dragon", 100.0f, 20.0f);
+            _snake = new Monster("Snake", 30.0f, 5.0f,"simple");
+            _crazedThief = new Monster("Crazed Thief", 40.0f, 10.0f, "simple");
+            _goblins = new Monster("Goblins", 50.0f, 10.0f, "simple");
+            _wolf = new Monster("Wolf", 60.0f, 15.0f, "simple");
+            _dragon = new Monster("Dragon", 100.0f, 20.0f, "boss");
             _inventory = new Item[5];
         }
 
@@ -151,16 +151,37 @@ namespace HelloWorld
             if (_player.GetHealth() <= 0.0f)
             {
                 //if player looses
-                Typeout("\nYou Died");
-                Console.WriteLine("Press any key to continue");
-                ClearScreen();
-                _gameOver = true;
+                if (monster.GetType() == "boss")
+                {
+                    //adds extra flare to dying by dragon
+                    Typeout("You were slain by the mighty dragon! The fate of the world is lost.");
+                    ClearScreen();
+                    _gameOver = true;
+                    area = "";
+                }
+                else
+                {
+                    Typeout("\nYou Died");
+                    ClearScreen();
+                    _gameOver = true;
+                    area = "";
+
+                }
             }
             else if (monster.GetHealth() <= 0.0f)
             {
                 //if player wins
-                Typeout("\nYou survived the battle!");
-                ClearScreen();
+                if (monster.GetType() == "boss")
+                {
+                    //adds some extra flare for killing the dragon dragon
+                    Typeout("You killed the might dragon! Your quest is complete!.");
+                    ClearScreen();
+                }
+                else
+                {
+                    Typeout("\nYou survived the battle!");
+                    ClearScreen();
+                }
             }
         }
 
@@ -578,6 +599,107 @@ namespace HelloWorld
 
             }
 
+            while (area == "Camp")
+            {
+                Typeout("It doesn't take long to come across a clearing in the field where three people have set up camp.");
+                input = ' ';
+                while (input != '1' && input != '2' && input != '3')
+                {
+                    input = GetInput("Approach", "Attack", "Walk Away", "As you approach the camp you see two tall burly men and one, even larger, women sitting by a fire.");
+                    if (input == '1')
+                    {
+                        Typeout("You slowly approach the three and they all stand with their weapons drawn.");
+                        input = GetInput("Sleep", "Food", "Walk Away", "The woman asks what you want in a low raspy voice.");
+                        if (input == '1')
+                        {
+                            Typeout("You ask for a place to sleep. The woman nods at the men. They put away their swrods and tell you that you can sleep right by the fire. " +
+                                "They enter their tents.");
+                            ClearScreen();
+                            Typeout("You wake up to the cold air and realize the three have left sometime in the night. " +
+                                "You feel rejuvenated for the long day ahead of you.");
+                            switch(_player.GetRole())
+                            {
+                                case "Knight":
+                                    _player.Heal(100.0f);
+                                    ClearScreen();
+                                    break;
+                                case "Rogue":
+                                    _player.Heal(90.0f);
+                                    ClearScreen();
+                                    break;
+                                case "Wizard":
+                                    _player.Heal(80.0f);
+                                    ClearScreen();
+                                    break;
+                            }
+                        }
+                        else if (input == '2')
+                        {
+                            Typeout("You ask for food. The woman nods at the men. They put away their swords and tell you to join them. " +
+                                "Yall talk hours and start to eat and drink. One by one yall passout.");
+                            ClearScreen();
+                            Typeout("You wake up to the cold air and realize the three have left sometime in the night. " +
+                                "You feel like you made some friends and rejuvenated for the long day ahead of you.");
+                            switch (_player.GetRole())
+                            {
+                                case "Knight":
+                                    _player.Heal(100.0f);
+                                    ClearScreen();
+                                    break;
+                                case "Rogue":
+                                    _player.Heal(90.0f);
+                                    ClearScreen();
+                                    break;
+                                case "Wizard":
+                                    _player.Heal(80.0f);
+                                    ClearScreen();
+                                    break;
+                            }
+                        }
+                        if (input == '3')
+                        {
+                            Typeout("You descide it's better to walk away and go back toward the creek.");
+                            ClearScreen();
+                            area = "Creek";
+                        }
+                    }
+                    else if (input == '2')
+                    {
+                        switch (_player.GetRole())
+                        {
+                            case "Knight":
+                                Typeout("You charge at them with your sword! The woman stand quickly and blocks your sword as the other two stab and cut into you! " +
+                                    "You lay on the ground hearing them laugh at you.");
+                                ClearScreen();
+                                _gameOver = true;
+                                area = " ";
+                                break;
+                            case "Rogue":
+                                Typeout("You dash at them quickly with your daggers! The two men stand fast and block your blows, before you can back up the woman stabs you in the chest!" +
+                                    "You lay on the ground hearing them laugh at you.");
+                                ClearScreen();
+                                _gameOver = true;
+                                area = " ";
+                                break;
+                            case "Wizard":
+                                Typeout("You quickly cast a spell taking out one of the men! The other two come at you quickly! " +
+                                    "While you manage to fight the other man off, the woman comes from behind and stabs you in the chest! " +
+                                    "She congragulates you for being able to take them down as you lay on the ground.");
+                                ClearScreen();
+                                _gameOver = true;
+                                area = " ";
+                                break;
+                        }
+                    }
+                    if (input == '3')
+                    {
+                        Typeout("You descide it's better to walk away and go back toward the creek.");
+                        ClearScreen();
+                        area = "Creek";
+                    }
+                }
+            }
+
             //Dark woods area
             //First Interaction
             /////OLD MAN/////
@@ -882,7 +1004,7 @@ namespace HelloWorld
                                                 Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large boook when she notices you're awake." +
                                                     "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before your eyes close again.");
                                                 _gameOver = true;
-                                                break;
+                                                area = "";
                                             }
                                             else if (input == '2')
                                             {
@@ -899,7 +1021,7 @@ namespace HelloWorld
                                                 Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large boook when she notices you're awake." +
                                                     "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before your eyes close again.");
                                                 _gameOver = true;
-                                                break;
+                                                area = "";
                                             }
                                             else if (input == '2')
                                             {
@@ -916,7 +1038,7 @@ namespace HelloWorld
                                                 Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large boook when she notices you're awake." +
                                                     "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before your eyes close again.");
                                                 _gameOver = true;
-                                                break;
+                                                area = "";
                                             }
                                             else if (input == '2')
                                             {
@@ -930,7 +1052,7 @@ namespace HelloWorld
                                             Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large boook when she notices you're awake." +
                                                 "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before your eyes close again.");
                                             _gameOver = true;
-                                            break;
+                                            area = "";
                                         }
                                     }
                                 }

@@ -23,12 +23,13 @@ namespace HelloWorld
             _gold = 4;
         }
 
-        public bool Sell(Character player, int shopIndex, int playerIndex)
+        /*
+        public bool Sell(int shopIndex, int playerIndex)
         {
             //find item to buy in inventory
             Item itemToBuy = _inventory[shopIndex];
             //checks if purchase sucsesfully
-            if (player.Buy(itemToBuy, playerIndex))
+            if (Game.Buy(itemToBuy, playerIndex))
             {
                 //increase shop gold buyt item cost to complete transaction 
                 _gold += itemToBuy.cost;
@@ -36,5 +37,6 @@ namespace HelloWorld
             }
             return false;
         }
+        */
     }
 }

@@ -294,7 +294,7 @@ namespace HelloWorld
         //Code from the ShopRPG Not doing a shop for my final project. Just wanted a shop in my game
         //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+        /*
         public bool Buy(Item item, int index)
         {
             if (_player.GetGold() > item.cost)
@@ -379,8 +379,10 @@ namespace HelloWorld
             }
 
             //Sell item to player and replace the weapon at the index with the newly purchased weapon
-            _shop.Sell(_player, itemIndex, playerIndex);
+            _shop.Sell(itemIndex, playerIndex);
+            ClearScreen();
         }
+        */
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////
         //Run the game
@@ -1408,8 +1410,8 @@ namespace HelloWorld
                     }
                     else if (input == '2')
                     {
-                        Typeout("You walk up to the shop.");
-                        OpenShopMenu();
+                        Typeout("You walk up to the shop. But it is currently closed.");
+                        //OpenShopMenu();
                         ClearScreen();
                         goto TownCenter;
                     }

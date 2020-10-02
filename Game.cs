@@ -174,7 +174,7 @@ namespace HelloWorld
                 if (monster.GetType() == "boss")
                 {
                     //adds some extra flare for killing the dragon dragon
-                    Typeout("You killed the might dragon! Your quest is complete!.");
+                    Typeout("You killed the mighty dragon! Your quest is complete!.");
                     ClearScreen();
                 }
                 else
@@ -1235,7 +1235,7 @@ namespace HelloWorld
                 input = ' ';
                 while (input != '1' && input != '2' && input != '3' && input != '4')
                 {
-                    TownCenter:
+                TownCenter:
                     input = GetInput("Inn", "Shop", "Well", "Leave Village", "Where do you go?");
                     if (input == '1')
                     {
@@ -1244,7 +1244,7 @@ namespace HelloWorld
                         if (input == '1')
                         {
                             Typeout("You enter the inn. It's full of noise and poeple. You walk over to the bar. The bartender walks up to you and eyes you up and down..");
-                            TheBar:
+                        TheBar:
                             input = GetInput("Food", "Sleep", "Information", "He asks what you want.");
                             if (input == '1')
                             {
@@ -1335,13 +1335,117 @@ namespace HelloWorld
             //Uphill area
             while (area == "Uphill")
             {
+                Typeout("You begain walking up hill. After hours of walking upward, you finally racher the top of the cliff. " +
+                    "In the distance you can see a large burning field with a mighty dragon sitting in the center. " +
+                    "You continue walking when you hear a snarl and turn to see a large black wolf with a little red hood in its mouth.");
+                input = ' ';
+                while (input != '1' && input != '2')
+                {
+                    input = GetInput("Run", "Attack", "What do you do?");
+                    if (input == '1')
+                    {
+                        Typeout("You try to run from the wolf, but it runs infront of you and goes to attack!");
+                        Typeout("Prepare for a fight!");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                        StartBattle(_wolf);
 
+                    }
+                    else if (input == '2')
+                    {
+                        Typeout("You ready yourself and prepare to finish this wolf!");
+                        Typeout("Prepare for a fight!");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                        StartBattle(_wolf);
+                    }
+                }
+                Typeout("You continue walking and soon stand on the edge of a buring field. " +
+                    "There is no going back. You walk toward the Dragon!");
+                ClearScreen();
+                area = "Boss";
             }
 
             //DownHill Area
             while (area == "Downhill")
             {
+                Typeout("You begain walking down hill and come to the bottom of the cliff. " +
+                    "You see a group of goblins coming in and out of a cave at the base of the cliff.");
+                input = ' ';
+                while (input != '1' && input != '2' && input != '3')
+                {
+                    input = GetInput("Approach", "Sneak Past", "Attack", "What do you do?");
+                    if (input == '1')
+                    {
+                        Typeout("You approach the goblins and they all freeze and stare. Then drop whatever they were doing and charge at you!");
+                        Typeout("Prepare for a fight!");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                        StartBattle(_goblins);
+                    }
+                    else if (input == '2')
+                    {
+                        switch (_player.GetRole())
+                        {
+                            case "Knight":
+                                Typeout("You try to sneak past, but your armor makes too much noise and the goblins see you. " +
+                                    "The goblins all freeze and stare. Then drop whatever they were doing and charge at you!");
+                                Typeout("Prepare for a fight!");
+                                Console.Write("> ");
+                                Console.ReadKey();
+                                Console.Clear();
+                                StartBattle(_goblins);
+                                break;
+                            case "Rogue":
+                                Typeout("You manage to sneak past them and continue on your way.");
+                                Typeout("You continue walking and soon stand on the edge of a buring field. " +
+                                    "There is no going back. You walk toward the Dragon!");
+                                ClearScreen();
+                                area = "Boss";
+                                break;
+                            case "Wizard":
+                                Typeout("You try to sneak past, but your staff pokes out and gives you away. " +
+                                    "The goblins all freeze and stare. Then drop whatever they were doing and charge at you!");
+                                Typeout("Prepare for a fight!");
+                                Console.Write("> ");
+                                Console.ReadKey();
+                                Console.Clear();
+                                StartBattle(_goblins);
+                                break;
+                        }
+                    }
+                    if (input == '3')
+                    {
+                        Typeout("You charge at the goblin weapon ready!");
+                        Typeout("Prepare for a fight!");
+                        Console.Write("> ");
+                        Console.ReadKey();
+                        Console.Clear();
+                        StartBattle(_goblins);
+                    }
+                }
+                Typeout("You continue walking and soon stand on the edge of a buring field. " +
+                    "There is no going back. You walk toward the Dragon!");
+                ClearScreen();
+                area = "Boss";
+            }
 
+            //Boss Area
+            while (area == "Boss")
+            {
+                Typeout("You walk across the burning field and soon come upon the mighty dragon! It stands tall before you, ready to get this over with.");
+                Typeout("Prepare for a fight and good luck!");
+                Console.Write("> ");
+                Console.ReadKey();
+                Console.Clear();
+                StartBattle(_dragon);
+                Typeout("You were the mighty world the hero needed!");
+                ClearScreen();
+                _gameOver = true;
+                area = " ";
             }
 
         }

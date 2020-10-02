@@ -21,6 +21,9 @@ namespace HelloWorld
         private Character _player;
         private Monster _snake;
         private Monster _crazedThief;
+        private Monster _goblins;
+        private Monster _griffon;
+        private Monster _dragon;
         string area = " ";
         private Item[] _inventory;
         private Item _staff;
@@ -35,6 +38,9 @@ namespace HelloWorld
             _strangeCoin.name = "Strange Coin";
             _snake = new Monster("Snake", 30.0f, 5.0f);
             _crazedThief = new Monster("Crazed Thief", 40.0f, 10.0f);
+            _goblins = new Monster("Goblins", 50.0f, 10.0f);
+            _griffon = new Monster("Griffon", 60.0f, 15.0f);
+            _dragon = new Monster("Dragon", 100.0f, 20.0f);
             _inventory = new Item[5];
         }
 
@@ -785,7 +791,6 @@ namespace HelloWorld
                     if (input == '1')
                     {
                         Typeout("You decide to go further into the Dark Woods");
-                        area = "Dark Woods 2";
                         ClearScreen();
                     }
                     else if (input == '2')
@@ -796,7 +801,6 @@ namespace HelloWorld
                     }
                 }
 
-                //Dark woods 2
                 /////LARGE HOUSE/////
                 Typeout("You're walking down the leafy path as it start to turn to night fall. Once dark you come to the end of the path. " +
                     "Before you is a large, two story, wooden house, dimly lit on the inside with a porch infront.");
@@ -876,7 +880,7 @@ namespace HelloWorld
                                                 Typeout("You lay down in the bed and soon start to doze off. Right before you fall asleep, you see a figure standing in the doorway.");
                                                 ClearScreen();
                                                 Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large boook when she notices you're awake." +
-                                                    "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before passing out again.");
+                                                    "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before your eyes close again.");
                                                 _gameOver = true;
                                                 break;
                                             }
@@ -893,7 +897,7 @@ namespace HelloWorld
                                                 Typeout("You lay down in the bed and soon start to doze off. Right before you fall asleep, you see a figure standing in the doorway.");
                                                 ClearScreen();
                                                 Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large boook when she notices you're awake." +
-                                                    "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before passing out again.");
+                                                    "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before your eyes close again.");
                                                 _gameOver = true;
                                                 break;
                                             }
@@ -910,7 +914,7 @@ namespace HelloWorld
                                                 Typeout("You lay down in the bed and soon start to doze off. Right before you fall asleep, you see a figure standing in the doorway.");
                                                 ClearScreen();
                                                 Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large boook when she notices you're awake." +
-                                                    "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before passing out again.");
+                                                    "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before your eyes close again.");
                                                 _gameOver = true;
                                                 break;
                                             }
@@ -924,7 +928,7 @@ namespace HelloWorld
                                             Typeout("You go back downstairs and get a strange feeling. Before you can do anything, you feel something hit the back of your head");
                                             ClearScreen();
                                             Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large boook when she notices you're awake." +
-                                                "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before passing out again.");
+                                                "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before your eyes close again.");
                                             _gameOver = true;
                                             break;
                                         }
@@ -948,6 +952,90 @@ namespace HelloWorld
                 }
             }
 
+            //Light Woods area
+            while (area == "Light Woods")
+            {
+                Typeout("You're walking through the woods as the trees start to become less dense and the path bare of leaves. In the distance you can see a samll village. " +
+                    "\nAs you get closer to the village something trips you. You look around and see nothing. A little further and something trips you again.");
+                /////
+                input = ' ';
+                while (input !='1' && input != '2' && input != '3')
+                {
+                    input = GetInput("Ask what it wants", "Walk past it", "Attack", "Then right outsid the village gate a small creature appears mid air infront of you.It is a brownie.");
+                    if (input == '1')
+                    {
+                        Typeout("You ask the brownie why he has been bothering you and what it want.");
+                        Typeout("It bows and apologizes profusely saying that it could not help itself. That it always trips people as they enter the village.");
+                        input = GetInput("Yes", "No", "Attack", "It ask if you will forgive it and give it permission to enter the village.");
+                        if (input == '1')
+                        {
+                            Typeout("You forgive the brownie and enter the village with the brownie floating behind you.");
+                            ClearScreen();
+                            area = "Village";
+                        }
+                        else if (input == '2')
+                        {
+                            Typeout("You push the brownie aside and enter the village.");
+                            ClearScreen();
+                            area = "Village";
+                        }
+                        if (input == '3')
+                        {
+                            switch (_player.GetRole())
+                            {
+                                case "Knight":
+                                    Typeout("You punch the brownie into the door and enter the village.");
+                                    ClearScreen();
+                                    area = "Village";
+                                    break;
+                                case "Rogue":
+                                    Typeout("You knock the top of the brownie's head with the pommel of one of your daggers and enter the village as the brownie falls to the ground.");
+                                    ClearScreen();
+                                    area = "Village";
+                                    break;
+                                case "Wizard":
+                                    Typeout("You freeze the brownie and let it fall to the ground as you enter the village.");
+                                    ClearScreen();
+                                    area = "Village";
+                                    break;
+                            }
+                        }
+                    }
+                    else if (input == '2')
+                    {
+                        Typeout("You push the brownie aside and enter the village.");
+                        ClearScreen();
+                        area = "Village";
+                    }
+                    if (input == '3')
+                    {
+                        switch (_player.GetRole())
+                        {
+                            case "Knight":
+                                Typeout("You punch the brownie into the door and enter the village.");
+                                ClearScreen();
+                                area = "Village";
+                                break;
+                            case "Rogue":
+                                Typeout("You knock the top of the brownie's head with the pommel of one of your daggers and enter the village as the brownie falls to the ground.");
+                                ClearScreen();
+                                area = "Village";
+                                break;
+                            case "Wizard":
+                                Typeout("You freeze the brownie and let it fall to the ground as you enter the village.");
+                                ClearScreen();
+                                area = "Village";
+                                break;
+                        }
+                    }
+                }
+            }
+
+            //Village area
+            while (area == "Village")
+            {
+
+            }
         }
 
         /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

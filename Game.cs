@@ -64,7 +64,7 @@ namespace HelloWorld
                     {
                         //gives knight stats to player
                         role = "Knight";
-                        _player = new Knight(name, role, 100.0f, 10.0f);
+                        _player = new Knight(name, role, 100.0f, 10.0f, 100.0f);
                         _sword.name = "Sword";
                         AddItemToInventory(_sword, 0);
                     }
@@ -129,14 +129,14 @@ namespace HelloWorld
                     _player.Attack(monster);
                     //enemy attack
                     _player.TakeDamage(monster.GetDamage());
-                    Console.Write("> ");
+                    Console.WriteLine("\nYou attack and so does the " + monster.GetName() + "!");
                     Console.ReadKey();
-
                 }
                 else if (input == '2')
                 {
                     //deal no damage but take less damage from enemy
                     _player.TakeDamage(monster.GetDamage() * 0.25f);
+                    Console.WriteLine(monster.GetName() + " attacks but you took less damage!");
                     Console.Write("> ");
                     Console.ReadKey();
                 }
@@ -145,7 +145,7 @@ namespace HelloWorld
             if (_player.GetHealth() <= 0.0f)
             {
                 //if player looses
-                Typeout("You Died");
+                Typeout("\nYou Died");
                 Console.WriteLine("Press any key to continue");
                 ClearScreen();
                 _gameOver = true;
@@ -153,7 +153,7 @@ namespace HelloWorld
             else if (monster.GetHealth() <= 0.0f)
             {
                 //if player wins
-                Typeout("You survived the battle!");
+                Typeout("\nYou survived the battle!");
                 ClearScreen();
             }
         }
@@ -219,6 +219,30 @@ namespace HelloWorld
             return input;
         }
 
+        //get player feed back when four options available 
+        Char GetInput(string option1, string option2, string option3, string option4,string query)
+        {
+            char input = ' ';
+            while (input != '1' && input != '2' && input != '3' && input != '4')
+            {
+                Typeout(query);
+                Console.WriteLine("1. " + option1);
+                Console.WriteLine("2. " + option2);
+                Console.WriteLine("3. " + option3);
+                Console.WriteLine("4. " + option4);
+                Console.WriteLine("5. View Stats");
+                Console.Write("> ");
+                input = Console.ReadKey().KeyChar;
+                if (input == '5')
+                {
+                    _player.ViewStats();
+                    PrintInventory(_inventory);
+                }
+                Console.WriteLine();
+            }
+            return input;
+        }
+
         //clears the screen and continues with player input
         public void ClearScreen()
         {
@@ -274,12 +298,13 @@ namespace HelloWorld
 
             //story intro
             Typeout("After many years of living in the saftey of your village, you've never had your skills tested as you will on the upcoming task. " +
-                "A Drake has moved into the local area and causing havoc. Thieves, monsters, and many other troubles have come out of hiding with this new threat looming over. " +
+                "A Dragon has moved into the local area and causing havoc. Thieves, monsters, and many other troubles have come out of hiding with this new threat looming over. " +
                 "It is now up to you and you alone to save everyone! ");
             Typeout("Good Luck!");
             ClearScreen();
 
             //first interaction
+            /////LITTLE RED HOOD/////
             Typeout("You start your adventure walking down an old road outside your village and soon run into a little girl, wearing a little red hood.");
             char input = ' ';
             while (input != '1' && input != '2' && input != '3')
@@ -291,7 +316,7 @@ namespace HelloWorld
                     if (input == '1')
                     {
                         Typeout("You take an apple and bite into it. The little girl smiles with large fang like teeth.");
-                        Typeout("Add Apple to inventory");
+                        Typeout("[Add Apple to inventory]");
                         AddItemToInventory(_apple, 1);
                         input = GetInput("Run Away", "Attack", "She throws off the little red hood and turns into a large wolf!");
                         if (input == '1')
@@ -347,7 +372,7 @@ namespace HelloWorld
                 else if (input == '2')
                 {
                     Typeout("You take an apple and bite into it. The little girl smiles with large fang like teeth.");
-                    Typeout("Add Apple to inventory");
+                    Typeout("[Add Apple to inventory]");
                     AddItemToInventory(_apple, 1);
                     input = GetInput("Run Away", "Attack", "She throws off the little red hood and turns into a large wolf!");
                     if (input == '1')
@@ -418,6 +443,7 @@ namespace HelloWorld
 
             //Tall Grassy Meadow area
             //First Interaction
+            /////LARGE SNAKE/////
             while (area == "Tall Grassy Meadow")
             {
                 Typeout("You're walking on a small dirt road with tall grass that goes up to your waste on either side.");
@@ -548,6 +574,7 @@ namespace HelloWorld
 
             //Dark woods area
             //First Interaction
+            /////OLD MAN/////
             while (area == "Dark Woods")
             {
                 Typeout("You're walking down the shadowy, leafy covered path of the Dark Woods.");
@@ -561,7 +588,7 @@ namespace HelloWorld
                         Typeout("You help up the old amn and realize he is blind.");
                         Typeout("He looks at you with faded eyes and thanks you. He then gives you a strange golden coin " +
                             "before vanishing into a pillar of somke.");
-                        Typeout("Add Strange Coin to inventory");
+                        Typeout("[Add Strange Coin to inventory]");
                         AddItemToInventory(_strangeCoin, 2);
                         ClearScreen();
                     }
@@ -600,6 +627,7 @@ namespace HelloWorld
                 }
 
                 //second interaction
+                /////CRAZED THIEF/////
                 Typeout("You continue on the dark trail and soon enter an opening in the middle of the Dark Woods. " +
                     "You stop and start to hear noises. Something is moving all around you.");
                 input = ' ';
@@ -757,6 +785,7 @@ namespace HelloWorld
                     if (input == '1')
                     {
                         Typeout("You decide to go further into the Dark Woods");
+                        area = "Dark Woods 2";
                         ClearScreen();
                     }
                     else if (input == '2')
@@ -767,6 +796,156 @@ namespace HelloWorld
                     }
                 }
 
+                //Dark woods 2
+                /////LARGE HOUSE/////
+                Typeout("You're walking down the leafy path as it start to turn to night fall. Once dark you come to the end of the path. " +
+                    "Before you is a large, two story, wooden house, dimly lit on the inside with a porch infront.");
+                input = ' ';
+                while (input != '1' && input != '2' && input != '3')
+                {
+                    FrontOfHouse:
+                    input = GetInput("Leave", "Walk around the house ", "Knock on the door", "What do you do?");
+                    if (input == '1')
+                    {
+                        Typeout("You decide to walk back and continue on the path towards the Light Woods");
+                        area = "Light Woods";
+                        ClearScreen();
+                    }
+                    else if (input == '2')
+                    {
+                        Typeout("You walk around the house, hesitant to go in. You see many windows, each look dimly lit like the one before, but each too foggy to see into. " +
+                            "You see nothing else of interest as you come back to the front of the house.");
+                        ClearScreen();
+                        goto FrontOfHouse;
+                    }
+                    if (input == '3')
+                    {
+                        Typeout("You walk up to the hosue and knock on the door.");
+                        Typeout("There is no response.");
+                        input = GetInput("Go Inside", "Leave", "What do you do?");
+                        if (input == '1')
+                        {
+                            ClearScreen();
+                            Typeout("You open the door. Inside is an empty house that is suddenly dark.");
+                            input = ' ';
+                            while (input != '1' && input != '2' && input != '3' && input != '4')
+                            {
+                                Entrance:
+                                Typeout("Infront of you is a doorway to your left, a doorway to your right, and a long hallway with stairs on the right side."); ;
+                                input = GetInput("Left Doorway", "Right Doorway", "Upstairs", "Leave", "Where do you go");
+                                if (input == '1')
+                                {
+                                    Typeout("You go through the left doorway and enter into a small room with another doorway at the end. You assume this to be the dinning room.");
+                                    input = GetInput("Other Doorway", "Entrance", "Where do you go?");
+                                    if (input == '1')
+                                    {
+                                        Typeout("You walk through the empty room to the other doorway and enter a kitchen. There seems to be nothing of interest in here. " +
+                                            "No food or anything out of the ordinary. There is another doorway that leads to the far end of the long hallway you entered in.");
+                                        ClearScreen();
+                                        Typeout("You are now back at the front of the hosue.");
+                                        goto Entrance;
+                                    }
+                                    else if (input == '2')
+                                    {
+                                        Typeout("You are now back at the front of the hosue.");
+                                        ClearScreen();
+                                        goto Entrance;
+                                    }
+                                }
+                                else if (input == '2')
+                                {
+                                    Typeout("You go through the right doorway and enter a long room with a fireplace and empty shelves. You assume this to be the living room. " +
+                                        "There is nothing else in this room.");
+                                    ClearScreen();
+                                    Typeout("You are now back at the front of the house.");
+                                    goto Entrance;
+                                }
+                                else if (input == '3')
+                                {
+                                    TopOfStairs:
+                                    Typeout("You go upstairs and see a long hallway with three doors.");
+                                    input = ' ';
+                                    while (input != '1' && input != '2' && input != '3' && input != '4')
+                                    {
+                                        input = GetInput("Door One", "Door Two", "Door Three", "Go back downstairs", "Where do you go?");
+                                        if (input == '1')
+                                        {
+                                            input = GetInput("Yes, sleep in bed", "NO, go back", "You enter a small room with a small bed. Would you like to sleep in the bed?");
+                                            if (input == '1')
+                                            {
+                                                Typeout("You lay down in the bed and soon start to doze off. Right before you fall asleep, you see a figure standing in the doorway.");
+                                                ClearScreen();
+                                                Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large boook when she notices you're awake." +
+                                                    "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before passing out again.");
+                                                _gameOver = true;
+                                                break;
+                                            }
+                                            else if (input == '2')
+                                            {
+                                                goto TopOfStairs;
+                                            }
+                                        }
+                                        else if (input == '2')
+                                        {
+                                            input = GetInput("Yes, sleep in bed", "NO, go back", "You enter a small room with a small bed. Would you like to sleep in the bed?");
+                                            if (input == '1')
+                                            {
+                                                Typeout("You lay down in the bed and soon start to doze off. Right before you fall asleep, you see a figure standing in the doorway.");
+                                                ClearScreen();
+                                                Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large boook when she notices you're awake." +
+                                                    "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before passing out again.");
+                                                _gameOver = true;
+                                                break;
+                                            }
+                                            else if (input == '2')
+                                            {
+                                                goto TopOfStairs;
+                                            }
+                                        }
+                                        else if (input == '3')
+                                        {
+                                            input = GetInput("Yes, sleep in bed", "NO, go back", "You enter a large room with a large bed. Would you like to sleep in the bed?");
+                                            if (input == '1')
+                                            {
+                                                Typeout("You lay down in the bed and soon start to doze off. Right before you fall asleep, you see a figure standing in the doorway.");
+                                                ClearScreen();
+                                                Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large boook when she notices you're awake." +
+                                                    "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before passing out again.");
+                                                _gameOver = true;
+                                                break;
+                                            }
+                                            else if (input == '2')
+                                            {
+                                                goto TopOfStairs;
+                                            }
+                                        }
+                                        if (input == '4')
+                                        {
+                                            Typeout("You go back downstairs and get a strange feeling. Before you can do anything, you feel something hit the back of your head");
+                                            ClearScreen();
+                                            Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large boook when she notices you're awake." +
+                                                "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before passing out again.");
+                                            _gameOver = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (input == '4')
+                                {
+                                    Typeout("You Leave the hosue and decide to walk back and continue on the path towards the Light Woods");
+                                    area = "Light Woods";
+                                    ClearScreen();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Typeout("You decide to walk back and continue on the path towards the Light Woods");
+                            area = "Light Woods";
+                            ClearScreen();
+                        }
+                    }
+                }
             }
 
         }

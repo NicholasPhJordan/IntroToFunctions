@@ -26,7 +26,7 @@ namespace HelloWorld
         public override void ViewStats()
         {
             base.ViewStats();
-            Console.WriteLine("Stamina: " + _rage); ;
+            Console.WriteLine("Rage: " + _rage); ;
         }
 
         public override float Attack(Monster monster)
@@ -37,8 +37,8 @@ namespace HelloWorld
                 char input = ' ';
                 while (input != '1' && input != '2' && input != '3')
                 {
-                    Console.WriteLine("1. Back Stab [30 Damage]");
-                    Console.WriteLine("2. Fast Attack [20 Damage]");
+                    Console.WriteLine("1. Charge [30 Damage]");
+                    Console.WriteLine("2. Lunge [20 Damage]");
                     Console.WriteLine("3. Normal Attack [10 Damage]");
                     Console.Write("> ");
                     input = Console.ReadKey().KeyChar;

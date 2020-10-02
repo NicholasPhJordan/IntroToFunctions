@@ -297,9 +297,9 @@ namespace HelloWorld
 
         public bool Buy(Item item, int index)
         {
-            if (_gold > item.cost)
+            if (_player.GetGold() > item.cost)
             {
-                _gold -= item.cost;
+                _player._gold -= item.cost;
                 _inventory[index] = item;
                 return true;
             }
@@ -1408,7 +1408,8 @@ namespace HelloWorld
                     }
                     else if (input == '2')
                     {
-                        Typeout("You walk up to the shop, bu it is temporarily closed. The dragon has affected this place more than you think.");
+                        Typeout("You walk up to the shop.");
+                        OpenShopMenu();
                         ClearScreen();
                         goto TownCenter;
                     }

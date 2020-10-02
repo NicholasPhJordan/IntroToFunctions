@@ -11,7 +11,7 @@ namespace HelloWorld
         private string _role;
         private float _health;
         protected float _damage;
-        private int _gold;
+        public int _gold;
 
         //character constructor
         public Character()

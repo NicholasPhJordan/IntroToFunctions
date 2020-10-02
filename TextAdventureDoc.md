@@ -28,6 +28,8 @@ components, implemented in the C# programming language:
 
 ## II. Design
 
+It's just text that has the occasional input options for the player to interact with and give basic feedback.
+
 ### Object Information
 
 **File**: Game.cs
@@ -281,3 +283,175 @@ components, implemented in the C# programming language:
 **File**: Shop.cs
 
 **Attributes**
+
+        Name: _gold
+            Description: allows intialiatazion of _gold object
+            Type: int
+
+        Name: _inventory
+            Description: creates and inventory array for the shop specifically
+            Type: Item Array
+
+        Name: Shop()
+            Description: constructor that initializes varibles 
+            Type: Shop
+
+        Name: Shop()
+            Description: overloaded constructor that allowrs shop to be called in another class
+            Type: Shop
+
+**File**: Knight.cs
+
+**Attributes**
+
+        Name: _rage
+            Description: allows for initialization
+            Type: float
+
+        Name: Knight : base()
+            Description: adds rage initialization to constructor base
+            Type: Knight
+
+        Name: Knight
+            Description: overloaded constructor that add rage to the base 
+            Type: Knight
+
+        Name: ViewStats()
+            Description: override that prints the base function and rage
+            Type: void
+
+        Name: Heal()
+            Description: takes a value and makes the players health equal to that value and puts rage back to 100
+            Type: float
+
+        Name: Attack()
+            Description: adds attack options to the base attack 
+            Type: float
+
+        Name: Save()
+            Description: overload that adds rage stat to be saved 
+            Type: void
+
+        Name: Load()
+            Description: overload that adds rage to one of the loaded values 
+            Type: bool
+
+**File**: Rouge.cs
+
+**Attributes**
+
+        Name: _stamina
+            Description: allows for initialization in constructor
+            Type: float
+
+        Name: Rogue : base()
+            Description: adds stamina initialization to constructor base
+            Type: Rouge
+
+        Name: Rogue
+            Description: overloaded constructor that add stamina to the base 
+            Type: Rouge
+
+        Name: ViewStats()
+            Description: override that prints the base function and stamina
+            Type: void
+
+        Name: Heal()
+            Description: takes a value and makes the players health equal to that value and puts stamina back to 100
+            Type: float
+
+        Name: Attack()
+            Description: adds attack options to the base attack 
+            Type: float
+
+        Name: Save()
+            Description: overload that adds attack stat to be saved 
+            Type: void
+
+        Name: Load()
+            Description: overload that adds stamina to one of the loaded values 
+            Type: bool
+
+**File**: Wizard.cs
+
+**Attributes**
+
+        Name: _mana
+            Description: allows for initialization in constructor
+            Type: float
+
+        Name: Wizard : base()
+            Description: adds mana initialization to constructor base
+            Type: Wizard
+
+        Name: Wizard
+            Description: overloaded constructor that add mana to the base 
+            Type: Wizard
+
+        Name: ViewStats()
+            Description: override that prints the base function and mana
+            Type: void
+
+        Name: Heal()
+            Description: takes a value and makes the players health equal to that value and puts mana back to 100
+            Type: float
+
+        Name: Attack()
+            Description: adds attack options to the base attack 
+            Type: float
+
+        Name: Save()
+            Description: overload that adds attack stat to be saved 
+            Type: void
+
+        Name: Load()
+            Description: overload that adds mana to one of the loaded values 
+            Type: bool
+
+**File**: Monster.cs
+
+**Attributes**
+
+        Name: _name
+            Description: creates and allows initialization of variable 
+            Type: string
+
+        Name: _health
+            Description: creates a variable for the monster
+            Type: float
+
+        Name: _damage
+            Description: creates a varibles to be used 
+            Type: float
+
+        Name: _type
+            Description: creates a variable for what type of monster it is 
+            Type: string
+
+        Name: Monster()
+            Description: creates a constructor of monster
+            Type: constructor
+
+        Name: Monster()
+            Description: overload constructor that can be called 
+            Type: constructor
+
+        Name: GetName()
+            Description: returns the name of the monster 
+            Type: string
+
+        Name: GetHealth()
+            Description: returns the amount of health the monster has
+            Type: float
+
+        Name: GetDamage()
+            Description: returns the amount of damage the monster does
+            Type: float
+
+        Name: GetType()
+            Description: returns what type of monster it was (simple or boss) 
+            Type: string
+
+        Name: TakeDamage()
+            Description: returns a damageval that subtracts from the monsters health 
+            Type: float

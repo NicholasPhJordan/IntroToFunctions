@@ -9,7 +9,7 @@ using System.IO;
 namespace HelloWorld
 {
 
-    struct Item 
+    struct Item
     {
         public string name;
     }
@@ -36,7 +36,7 @@ namespace HelloWorld
         {
             _apple.name = "Apple";
             _strangeCoin.name = "Strange Coin";
-            _snake = new Monster("Snake", 30.0f, 5.0f,"simple");
+            _snake = new Monster("Snake", 30.0f, 5.0f, "simple");
             _crazedThief = new Monster("Crazed Thief", 40.0f, 10.0f, "simple");
             _goblins = new Monster("Goblins", 50.0f, 10.0f, "simple");
             _wolf = new Monster("Wolf", 60.0f, 15.0f, "simple");
@@ -247,7 +247,7 @@ namespace HelloWorld
         }
 
         //get player feed back when four options available 
-        Char GetInput(string option1, string option2, string option3, string option4,string query)
+        Char GetInput(string option1, string option2, string option3, string option4, string query)
         {
             char input = ' ';
             while (input != '1' && input != '2' && input != '3' && input != '4')
@@ -599,6 +599,7 @@ namespace HelloWorld
 
             }
 
+            //camp area
             while (area == "Camp")
             {
                 Typeout("It doesn't take long to come across a clearing in the field where three people have set up camp.");
@@ -617,19 +618,22 @@ namespace HelloWorld
                             ClearScreen();
                             Typeout("You wake up to the cold air and realize the three have left sometime in the night. " +
                                 "You feel rejuvenated for the long day ahead of you.");
-                            switch(_player.GetRole())
+                            switch (_player.GetRole())
                             {
                                 case "Knight":
                                     _player.Heal(100.0f);
                                     ClearScreen();
+                                    area = "Creek";
                                     break;
                                 case "Rogue":
                                     _player.Heal(90.0f);
                                     ClearScreen();
+                                    area = "Creek";
                                     break;
                                 case "Wizard":
                                     _player.Heal(80.0f);
                                     ClearScreen();
+                                    area = "Creek";
                                     break;
                             }
                         }
@@ -645,14 +649,17 @@ namespace HelloWorld
                                 case "Knight":
                                     _player.Heal(100.0f);
                                     ClearScreen();
+                                    area = "Creek";
                                     break;
                                 case "Rogue":
                                     _player.Heal(90.0f);
                                     ClearScreen();
+                                    area = "Creek";
                                     break;
                                 case "Wizard":
                                     _player.Heal(80.0f);
                                     ClearScreen();
+                                    area = "Creek";
                                     break;
                             }
                         }
@@ -693,18 +700,77 @@ namespace HelloWorld
                     }
                     if (input == '3')
                     {
-                        Typeout("You descide it's better to walk away and go back toward the creek.");
+                        Typeout("You decide it's better to walk away and go back toward the creek.");
                         ClearScreen();
                         area = "Creek";
                     }
                 }
             }
 
+            //Creek area
+            while (area == "Creek")
+            {
+                //first inter action with bridge
+                Typeout("You're walking toward the creek and see a small bridge that passes over it. As you get to the bridge, you notice the top of it is missing " +
+                    "and there is a big gap from one side of the bridge to the other.");
+                input = ' ';
+                while (input != '1' && input != '2' && input != '3')
+                {
+                    input = GetInput("Jump the gap", "Walk through creek", "Find anohter way", "What do you do?");
+                    if (input == '1')
+                    {
+                        Typeout("You try to jump the gap to the other side of the bridge and miss. You fall into the creek and realize it is very shallow. " +
+                            "You walk to the other side of the creek.");
+                    }
+                    else if (input == '2')
+                    {
+                        Typeout("You get off the bridge and notice the creek is actually rather shallow. You walk through the creek.");
+                    }
+                    if (input == '3')
+                    {
+                        Typeout("You decide to walk along the creek and look for another way over.");
+                    }
+                }
+                ClearScreen();
+
+                //second interaction with faries
+                if (input == '3')
+                {
+                    Typeout("You walk along the creek when you hear little voices playing in the water. As you get closer, you see two little faries playing in the water. " +
+                        "The faries see you and fly over to you.");
+                    input = GetInput("Passage over creek", "Tell them to shut up", "In high pitched voices they ask, what do you want?");
+                    if (input == '1')
+                    {
+                        Typeout("You ask if they can help you over the creek and with happy little cheers, they pick you up by the sholders and carry you to the other side of the creek. " +
+                            "They wish you luck and hope you have a great journey");
+                        Typeout("You continue down the path and soon come to a village. You walk up to its big doors and enter the village.");
+                        ClearScreen();
+                        area = "Village";
+                    }
+                    else if (input == '2')
+                    {
+                        Typeout("You tell the faries to shut their little mouths. They get very angry and push you into the creek. Then they fly away. " +
+                            "\nYou notice the creek is very shallow and decide to walk to the other side.");
+                        Typeout("You continue down the path and soon come to a village. You walk up to its big doors and enter the village.");
+                        ClearScreen();
+                        area = "Village";
+                    }
+                }
+                else
+                {
+                    Typeout("You walk along the path which follows the creek. At one point you notice two faries playing in the water near the other side of the creek. " +
+                        "Since you already crossed the creek, you ignore them and continue forward.");
+                    Typeout("You continue down the path and soon come to a village. You walk up to its big doors and enter the village.");
+                    ClearScreen();
+                    area = "village";
+                }
+            }
+
             //Dark woods area
-            //First Interaction
-            /////OLD MAN/////
             while (area == "Dark Woods")
             {
+                //First Interaction
+                /////OLD MAN/////
                 Typeout("You're walking down the shadowy, leafy covered path of the Dark Woods.");
                 Typeout("When you see an old man sitting on a stump off the side of the road.");
                 input = ' ';
@@ -929,7 +995,7 @@ namespace HelloWorld
                 input = ' ';
                 while (input != '1' && input != '2' && input != '3')
                 {
-                    FrontOfHouse:
+                FrontOfHouse:
                     input = GetInput("Leave", "Walk around the house ", "Knock on the door", "What do you do?");
                     if (input == '1')
                     {
@@ -956,7 +1022,7 @@ namespace HelloWorld
                             input = ' ';
                             while (input != '1' && input != '2' && input != '3' && input != '4')
                             {
-                                Entrance:
+                            Entrance:
                                 Typeout("Infront of you is a doorway to your left, a doorway to your right, and a long hallway with stairs on the right side."); ;
                                 input = GetInput("Left Doorway", "Right Doorway", "Upstairs", "Leave", "Where do you go");
                                 if (input == '1')
@@ -988,7 +1054,7 @@ namespace HelloWorld
                                 }
                                 else if (input == '3')
                                 {
-                                    TopOfStairs:
+                                TopOfStairs:
                                     Typeout("You go upstairs and see a long hallway with three doors.");
                                     input = ' ';
                                     while (input != '1' && input != '2' && input != '3' && input != '4')
@@ -1001,8 +1067,10 @@ namespace HelloWorld
                                             {
                                                 Typeout("You lay down in the bed and soon start to doze off. Right before you fall asleep, you see a figure standing in the doorway.");
                                                 ClearScreen();
-                                                Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large boook when she notices you're awake." +
-                                                    "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before your eyes close again.");
+                                                Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large " +
+                                                    "book when she notices you're awake." +
+                                                    "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. " +
+                                                    "This is the last thing you feel before your eyes close again.");
                                                 _gameOver = true;
                                                 area = "";
                                             }
@@ -1018,8 +1086,10 @@ namespace HelloWorld
                                             {
                                                 Typeout("You lay down in the bed and soon start to doze off. Right before you fall asleep, you see a figure standing in the doorway.");
                                                 ClearScreen();
-                                                Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large boook when she notices you're awake." +
-                                                    "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before your eyes close again.");
+                                                Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large " +
+                                                    "book when she notices you're awake." +
+                                                    "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. " +
+                                                    "This is the last thing you feel before your eyes close again.");
                                                 _gameOver = true;
                                                 area = "";
                                             }
@@ -1035,8 +1105,10 @@ namespace HelloWorld
                                             {
                                                 Typeout("You lay down in the bed and soon start to doze off. Right before you fall asleep, you see a figure standing in the doorway.");
                                                 ClearScreen();
-                                                Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large boook when she notices you're awake." +
-                                                    "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before your eyes close again.");
+                                                Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large " +
+                                                    "book when she notices you're awake." +
+                                                    "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. " +
+                                                    "This is the last thing you feel before your eyes close again.");
                                                 _gameOver = true;
                                                 area = "";
                                             }
@@ -1049,8 +1121,10 @@ namespace HelloWorld
                                         {
                                             Typeout("You go back downstairs and get a strange feeling. Before you can do anything, you feel something hit the back of your head");
                                             ClearScreen();
-                                            Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large boook when she notices you're awake." +
-                                                "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. This is the last thing you feel before your eyes close again.");
+                                            Typeout("You wake up with blurry vision in a tub filled with warm water. An old lady is standing next to you reading from a large " +
+                                                "book when she notices you're awake." +
+                                                "She bends down next to you and with a raspy voice tells you to be calm as she puts a rag over your face. " +
+                                                "This is the last thing you feel before your eyes close again.");
                                             _gameOver = true;
                                             area = "";
                                         }
@@ -1081,7 +1155,7 @@ namespace HelloWorld
                     "\nAs you get closer to the village something trips you. You look around and see nothing. A little further and something trips you again.");
                 /////
                 input = ' ';
-                while (input !='1' && input != '2' && input != '3')
+                while (input != '1' && input != '2' && input != '3')
                 {
                     input = GetInput("Ask what it wants", "Walk past it", "Attack", "Then right outsid the village gate a small creature appears mid air infront of you.It is a brownie.");
                     if (input == '1')
@@ -1156,8 +1230,120 @@ namespace HelloWorld
             //Village area
             while (area == "Village")
             {
+                Typeout("You enter the village and see people bustling around. Even a drogon doesn't stop people from living out their lives. Although the knights look tired. " +
+                    "Necks hurt and eyes dried from watching the sky for dragons.");
+                input = ' ';
+                while (input != '1' && input != '2' && input != '3' && input != '4')
+                {
+                    TownCenter:
+                    input = GetInput("Inn", "Shop", "Well", "Leave Village", "Where do you go?");
+                    if (input == '1')
+                    {
+                        Typeout("You walk over to the inn. The Dragon's Peak, a sign says above the door as you enter the inn.");
+                        input = GetInput("Yes", "No", "Do you enter?");
+                        if (input == '1')
+                        {
+                            Typeout("You enter the inn. It's full of noise and poeple. You walk over to the bar. The bartender walks up to you and eyes you up and down..");
+                            TheBar:
+                            input = GetInput("Food", "Sleep", "Information", "He asks what you want.");
+                            if (input == '1')
+                            {
+                                Typeout("You ask the bartender for food and he asks if have gold to pay. " +
+                                    "You tell him that you're going to fight the dragon and he waves you off, telling you your food will be there soon. " +
+                                    "You sit a lonly table when a server drop off your food. You feel refreashed and ready to continue.");
+                                switch (_player.GetRole())
+                                {
+                                    case "Knight":
+                                        _player.Heal(100.0f);
+                                        break;
+                                    case "Rogue":
+                                        _player.Heal(90.0f);
+                                        break;
+                                    case "Wizard":
+                                        _player.Heal(80.0f);
+                                        break;
+                                }
+                                ClearScreen();
+                                goto TheBar;
+                            }
+                            else if (input == '2')
+                            {
+                                Typeout("You ask for a room and the bartender asks if you have any gold to pay. " +
+                                    "You tell him that you're going to fight the dragon and he waves you off, telling you your room number. " +
+                                    "You go to the room and sleep till the next day. Then you head out.");
+                                switch (_player.GetRole())
+                                {
+                                    case "Knight":
+                                        _player.Heal(100.0f);
+                                        break;
+                                    case "Rogue":
+                                        _player.Heal(90.0f);
+                                        break;
+                                    case "Wizard":
+                                        _player.Heal(80.0f);
+                                        break;
+                                }
+                                ClearScreen();
+                                goto TownCenter;
+                            }
+                            else if (input == '3')
+                            {
+                                Typeout("You ask the bartender if he has any information about the dragon. He scoffs and says that the dragon lives in a field beyond the cliff on the other side of the village. " +
+                                    "He says that a group of goblins has moved in at the bottom of the cliff. Then he tells you not to throw your life away and go home.");
+                                ClearScreen();
+                                goto TheBar;
+                            }
+                        }
+                        else if (input == '2')
+                        {
+                            Typeout("You decide not to enter the inn.");
+                            ClearScreen();
+                            goto TownCenter;
+                        }
+                    }
+                    else if (input == '2')
+                    {
+                        Typeout("You walk up to the shop, bu it is temporarily closed. The dragon has affected this place more than you think.");
+                        ClearScreen();
+                        goto TownCenter;
+                    }
+                    else if (input == '3')
+                    {
+                        Typeout("You walk up to the well, but it seems perfectly fine at the moment.");
+                        ClearScreen();
+                        goto TownCenter;
+                    }
+                    if (input == '4')
+                    {
+                        input = GetInput("Uphill", "Downhill", "Do you leave going uphill or downhill?");
+                        if (input == '1')
+                        {
+                            Typeout("You decide to go Uphill out the village.");
+                            ClearScreen();
+                            area = "Uphill";
+                        }
+                        else if (input == '2')
+                        {
+                            Typeout("You decide to go Downhill out the village.");
+                            ClearScreen();
+                            area = "Downhill";
+                        }
+                    }
+                }
+            }
+
+            //Uphill area
+            while (area == "Uphill")
+            {
 
             }
+
+            //DownHill Area
+            while (area == "Downhill")
+            {
+
+            }
+
         }
 
         /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

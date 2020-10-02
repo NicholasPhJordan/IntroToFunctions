@@ -29,6 +29,13 @@ namespace HelloWorld
             Console.WriteLine("Mana: " + _mana); ;
         }
 
+        //Heal, but with mana
+        public override float Heal(float healthVal)
+        {
+            _mana = 100.0f;
+            return base.Heal(healthVal);
+        }
+
         //override of the attack function for the wizard
         //allows the player as a wizard to choose a spell to cast based on the amount of mana they have
         public override float Attack(Monster monster)

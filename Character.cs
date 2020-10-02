@@ -81,7 +81,7 @@ namespace HelloWorld
             return damageVal;
         }
 
-        public float Heal(float healthVal)
+        public virtual float Heal(float healthVal)
         {
             return _health = healthVal;
         }

@@ -29,6 +29,13 @@ namespace HelloWorld
             Console.WriteLine("Stamina: " + _stamina); ;
         }
 
+        //Heal, but with stamina
+        public override float Heal(float healthVal)
+        {
+            _stamina = 100.0f;
+            return base.Heal(healthVal);
+        }
+
         public override float Attack(Monster monster)
         {
             float damageTaken = 0.0f;

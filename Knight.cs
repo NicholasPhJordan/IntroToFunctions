@@ -29,6 +29,13 @@ namespace HelloWorld
             Console.WriteLine("Rage: " + _rage); ;
         }
 
+        //Heal, but with rage
+        public override float Heal(float healthVal)
+        {
+            _rage = 100.0f;
+            return base.Heal(healthVal);
+        }
+
         public override float Attack(Monster monster)
         {
             float damageTaken = 0.0f;

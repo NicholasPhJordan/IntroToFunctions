@@ -27,7 +27,7 @@ namespace HelloWorld
         private Monster _wolf;
         private Monster _dragon;
         public string area = " ";
-        private Item[] _inventory;
+        private Item[] _playerInventory;
         private Item _staff;
         private Item _daggers;
         private Item _sword;
@@ -47,13 +47,14 @@ namespace HelloWorld
             _goblins = new Monster("Goblins", 50.0f, 10.0f, "simple");
             _wolf = new Monster("Wolf", 60.0f, 15.0f, "simple");
             _dragon = new Monster("Dragon", 100.0f, 20.0f, "boss");
-            _inventory = new Item[5];
-            _arrow.name = "Arrow";
-            _arrow.cost = 1;
-            _shield.name = "Shield";
-            _shield.cost = 1;
-            _bow.name = "Bow";
-            _bow.cost = 1;
+            _shopInventory = new Item[] { _arrow, _shield, _bow };
+            _shop = new Shop(_shopInventory);
+            _arrow.name = "Staff +1";
+            _arrow.cost = 40;
+            _shield.name = "Sword +1";
+            _shield.cost = 30;
+            _bow.name = "Daggers +1";
+            _bow.cost = 25;
         }
 
         //funtion that takes player input to create character
@@ -69,8 +70,11 @@ namespace HelloWorld
                 input = Console.ReadKey().KeyChar;
                 if (input == '2')
                 {
-                    _player = new Character();
-                    Load();
+                    if (File.Exists("SaveData.txt"))
+                    {
+                        _player = new Character();
+                        Load();
+                    }
                 }
             }
             //player chooses their name 
@@ -223,7 +227,7 @@ namespace HelloWorld
         //allows us to add items to inventory
         public void AddItemToInventory(Item item, int index)
         {
-            _inventory[index] = item;
+            _playerInventory[index] = item;
         }
 
         //Get player feed back when two options available
@@ -242,7 +246,7 @@ namespace HelloWorld
                 {
                     Console.WriteLine();
                     _player.ViewStats();
-                    PrintInventory(_inventory);
+                    PrintInventory(_playerInventory);
                 }
                 Console.WriteLine();
             }
@@ -265,7 +269,7 @@ namespace HelloWorld
                 if (input == '4')
                 {
                     _player.ViewStats();
-                    PrintInventory(_inventory);
+                    PrintInventory(_playerInventory);
                 }
                 Console.WriteLine();
             }
@@ -289,7 +293,7 @@ namespace HelloWorld
                 if (input == '5')
                 {
                     _player.ViewStats();
-                    PrintInventory(_inventory);
+                    PrintInventory(_playerInventory);
                 }
                 Console.WriteLine();
             }
@@ -309,7 +313,7 @@ namespace HelloWorld
         {
             //Create a new stream writer.
             StreamWriter writer = new StreamWriter("SaveData.txt");
-            //Call save for both instances for player.
+            //Call save for player.
             _player.Save(writer);
             //Close writer.
             writer.Close();
@@ -319,7 +323,7 @@ namespace HelloWorld
         {
             //Create a new stream reader.
             StreamReader reader = new StreamReader("SaveData.txt");
-            //Call load for each instance of player to load data.
+            //Call load for player to load data.
             _player.Load(reader);
             //Close reader
             reader.Close();
@@ -440,8 +444,6 @@ namespace HelloWorld
         {
             //initializes items and monsters for the game to use
             Initialize();
-            _shopInventory = new Item[] { _arrow, _shield, _bow };
-            _shop = new Shop(_shopInventory);
 
             //opening "menu"
             Console.BackgroundColor = ConsoleColor.DarkGreen; //changes background to dark green
@@ -630,7 +632,7 @@ namespace HelloWorld
                             input = GetInput("Offer apple", "Attack", "The sanke tells you that it doesn't wish to fight and just wants some food.");
                             if (input == '1')
                             {
-                                if (_inventory.Equals(_apple))
+                                if (_playerInventory.Equals(_apple))
                                 {
                                     Typeout("You take an apple, with a single bite in it, out of your bag and offer it to the snake.");
                                     input = GetInput("Run", "Attack", "The snake shakes its head and tells you that it doesn't want to eat the apple.");

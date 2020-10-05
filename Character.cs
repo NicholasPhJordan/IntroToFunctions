@@ -13,6 +13,7 @@ namespace HelloWorld
         private float _health;
         protected float _damage;
         public int _gold;
+        private Item[] _inventory;
 
         //character constructor
         public Character()
@@ -22,6 +23,7 @@ namespace HelloWorld
             _health = 100.0f;
             _damage = 10.0f;
             _gold = 4;
+            _inventory = new Item[5];
         }
 
         //constructor overload

@@ -12,7 +12,7 @@ namespace HelloWorld
         //shop constructor
         public Shop()
         {
-            _inventory = new Item[3];
+            _inventory = new Item[5];
             _gold = 4;
         }
 

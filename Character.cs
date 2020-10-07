@@ -13,7 +13,6 @@ namespace HelloWorld
         private float _health;
         protected float _damage;
         public int _gold;
-        private Item[] _inventory;
 
         //character constructor
         public Character()
@@ -23,7 +22,6 @@ namespace HelloWorld
             _health = 100.0f;
             _damage = 10.0f;
             _gold = 4;
-            _inventory = new Item[5];
         }
 
         //constructor overload
@@ -33,7 +31,6 @@ namespace HelloWorld
             _role = roleVal;
             _health = healthVal;
             _damage = damageVal;
-            _gold = goldVal;
         }
 
         ///////////////////////////////////////////////////
@@ -47,17 +44,16 @@ namespace HelloWorld
             writer.WriteLine(_role);
             writer.WriteLine(_health);
             writer.WriteLine(_damage);
-            writer.WriteLine(_gold);
         }
 
         public virtual bool Load(StreamReader reader)
         {
             //Create variables to store loaded data.
             string name = reader.ReadLine();
-            string role = "Adventurer";
-            float damage = 0;
-            float health = 0;
-            int gold = 0;
+            reader.ReadLine();
+            string role = _role;
+            float health = 10;
+            float damage = 1;
             //Checks to see if loading was successful.
             if (float.TryParse(reader.ReadLine(), out health) == false)
             {
@@ -69,10 +65,10 @@ namespace HelloWorld
             }
             //If successful, set update the member variables and return true.
             _name = name;
-            _role = role;
-            _damage = damage;
+            _role = reader.ReadLine();
+            reader.ReadLine();
             _health = health;
-            _gold = gold;
+            _damage = damage;
             return true;
         }
 

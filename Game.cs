@@ -27,19 +27,20 @@ namespace HelloWorld
         private Monster _wolf;
         private Monster _dragon;
         public string area = " ";
-        private Item[] _playerInventory;
+        private Item[] _inventory;
         private Item _staff;
         private Item _daggers;
         private Item _sword;
         private Item _apple;
         private Item _strangeCoin;
         private Item[] _shopInventory;
-        private Item _arrow;
-        private Item _shield;
-        private Item _bow;
+        private Item _staff1;
+        private Item _sword1;
+        private Item _daggers1;
 
         public void Initialize()
         {
+            _inventory = new Item[5];
             _apple.name = "Apple";
             _strangeCoin.name = "Strange Coin";
             _snake = new Monster("Snake", 30.0f, 5.0f, "simple");
@@ -47,14 +48,14 @@ namespace HelloWorld
             _goblins = new Monster("Goblins", 50.0f, 10.0f, "simple");
             _wolf = new Monster("Wolf", 60.0f, 15.0f, "simple");
             _dragon = new Monster("Dragon", 100.0f, 20.0f, "boss");
-            _shopInventory = new Item[] { _arrow, _shield, _bow };
+            _shopInventory = new Item[] { _staff1, _sword1, _daggers1 };
             _shop = new Shop(_shopInventory);
-            _arrow.name = "Staff +1";
-            _arrow.cost = 40;
-            _shield.name = "Sword +1";
-            _shield.cost = 30;
-            _bow.name = "Daggers +1";
-            _bow.cost = 25;
+            _staff1.name = "Staff +1";
+            _staff1.cost = 40;
+            _sword1.name = "Sword +1";
+            _sword1.cost = 30;
+            _daggers1.name = "Daggers +1";
+            _daggers1.cost = 25;
         }
 
         //funtion that takes player input to create character
@@ -74,6 +75,9 @@ namespace HelloWorld
                     {
                         _player = new Character();
                         Load();
+                        Console.WriteLine();
+                        Typeout("Welcome back " + _player.GetName() + "! The mighty " + _player.GetRole() + "!");
+                        return _player;
                     }
                 }
             }
@@ -87,6 +91,7 @@ namespace HelloWorld
                 string name = Console.ReadLine();
                 //player chooses role
                 string role = "";
+                input = ' ';
                 while (input != '1' && input != '2' && input != '3')
                 {
                     Console.Clear();
@@ -140,10 +145,25 @@ namespace HelloWorld
         //https://stackoverflow.com/questions/25337336/how-to-make-text-be-typed-out-in-console-application site i got info from
         static void Typeout(string message)
         {
+            while (Console.KeyAvailable)
+            {
+                Console.ReadKey(false);
+            }
+
             for (int i = 0; i < message.Length; i++)
             {
-                Console.Write(message[i]);
-                System.Threading.Thread.Sleep(30);
+                if (!Console.KeyAvailable)
+                {
+                    Console.Write(message[i]);
+                    System.Threading.Thread.Sleep(30);
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine(message);
+                    Console.ReadKey(false);
+                    break;
+                }
             }
             Console.WriteLine();
         }
@@ -227,7 +247,7 @@ namespace HelloWorld
         //allows us to add items to inventory
         public void AddItemToInventory(Item item, int index)
         {
-            _playerInventory[index] = item;
+            _inventory[index] = item;
         }
 
         //Get player feed back when two options available
@@ -246,7 +266,7 @@ namespace HelloWorld
                 {
                     Console.WriteLine();
                     _player.ViewStats();
-                    PrintInventory(_playerInventory);
+                    PrintInventory(_inventory);
                 }
                 Console.WriteLine();
             }
@@ -269,7 +289,7 @@ namespace HelloWorld
                 if (input == '4')
                 {
                     _player.ViewStats();
-                    PrintInventory(_playerInventory);
+                    PrintInventory(_inventory);
                 }
                 Console.WriteLine();
             }
@@ -293,7 +313,7 @@ namespace HelloWorld
                 if (input == '5')
                 {
                     _player.ViewStats();
-                    PrintInventory(_playerInventory);
+                    PrintInventory(_inventory);
                 }
                 Console.WriteLine();
             }
@@ -448,9 +468,9 @@ namespace HelloWorld
             //opening "menu"
             Console.BackgroundColor = ConsoleColor.DarkGreen; //changes background to dark green
             Console.ForegroundColor = ConsoleColor.White; //changes text to white
-            Typeout("                                              ");
-            Typeout("          T E X T  A D V E N T U R E          ");
-            Typeout("                                              ");
+            Typeout("                                              " 
+                + "\n          T E X T  A D V E N T U R E          " 
+                + "\n                                              ");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Green; //changes text to green
             Console.WriteLine("          Press any key to start");
@@ -632,7 +652,7 @@ namespace HelloWorld
                             input = GetInput("Offer apple", "Attack", "The sanke tells you that it doesn't wish to fight and just wants some food.");
                             if (input == '1')
                             {
-                                if (_playerInventory.Equals(_apple))
+                                if (_inventory.Equals(_apple))
                                 {
                                     Typeout("You take an apple, with a single bite in it, out of your bag and offer it to the snake.");
                                     input = GetInput("Run", "Attack", "The snake shakes its head and tells you that it doesn't want to eat the apple.");

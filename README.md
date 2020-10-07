@@ -9,7 +9,7 @@ There are fighting scenarios, but becareful. Death can come around any cornor.
 ## How to Play
 
 1) Click on releases (or link below) and download all files of the latest release
-https://github.com/NicholasPhJordan/IntroToFunctions/releases
+ - https://github.com/NicholasPhJordan/IntroToFunctions/releases
 2) Extract all files and select the file labled "Hello World" (just "Hello World")
 3) Have fun and Play!
 

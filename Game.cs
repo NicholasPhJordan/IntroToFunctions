@@ -485,6 +485,7 @@ namespace HelloWorld
             //Charater set up
             _player = CreateCharacter();
             ClearScreen();
+            Save();
 
             //story intro
             Typeout("After many years of living in the saftey of your village, you've never had your skills tested as you will on the upcoming task. " +

@@ -50,8 +50,7 @@ namespace HelloWorld
         {
             //Create variables to store loaded data.
             string name = reader.ReadLine();
-            reader.ReadLine();
-            string role = _role;
+            string role = reader.ReadLine();
             float health = 10;
             float damage = 1;
             //Checks to see if loading was successful.
@@ -65,8 +64,7 @@ namespace HelloWorld
             }
             //If successful, set update the member variables and return true.
             _name = name;
-            _role = reader.ReadLine();
-            reader.ReadLine();
+            _role = role;
             _health = health;
             _damage = damage;
             return true;

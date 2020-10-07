@@ -22,5 +22,6 @@ Input keys '1', '2', '3', '4', & '5'
 ## Known Problems
 
 - The shop and some other features do not work at the moment, but it had all I needed for a project.
-- You cannot skip past the loading text. I know it sucks. But if you replay, you can play out the whole game as it catches up.
-- At the current time the game will not save.
+- You can skip to the end of text, but can cuase some text to print funky looking. But still ledgible.
+- Can save but may change role to default.
+- May not recognize apple is in inventory.
